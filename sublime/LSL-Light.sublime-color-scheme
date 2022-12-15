@@ -17,36 +17,36 @@
     [
         {
             "scope": "comment",
-            "foreground": "#cd4d26",
+            "foreground": "#008000",
         },
         {
             "scope": "storage.type",
-            "foreground": "#006600"
+            "foreground": "#cc6600"
         },
         {
             "scope": "support.function.event",
-            "foreground": "#336699"
+            "foreground": "#004d80"
         },
         {
             "name": "state",
-            "scope": "entity.name.state",
-            "foreground": "#820124",
+            "scope": "keyword.declaration.state",
+            "foreground": "#009999",
         },
         {
             "scope": "string",
-            "foreground": "#006600"
+            "foreground": "#ff0400"
         },
         {
             "scope": "support.function.builtin",
-            "foreground": "#820124"
+            "foreground": "#6600cc"
         },
         {
-            "scope": "constant",
-            "foreground": "#242687"
+            "scope": "constant.language",
+            "foreground": "#009999"
         },
         {
             "scope": "keyword.control",
-            "foreground": "#0000cd"
+            "foreground": "#6600cc"
         },
         {
             "scope": "invalid",

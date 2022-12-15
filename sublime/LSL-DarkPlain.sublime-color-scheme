@@ -31,9 +31,8 @@
         },
         {
             "name": "variable",
-            "scope": "entity.name.variable",
+            "scope": "variable",
             "foreground": "#f8f8f0",
-            // "foreground": "#e5a5e0",
         },
         {
             "name": "keyword control",
@@ -57,12 +56,12 @@
         },
         {
             "name": "user function",
-            "scope": "entity.name.userfunction",
+            "scope": "entity.name.function",
             "foreground": "#8cdaff",
         },
         {
             "name": "state",
-            "scope": "entity.name.state",
+            "scope": "keyword.declaration.state",
             "foreground": "#ffc14d",
         },
         {

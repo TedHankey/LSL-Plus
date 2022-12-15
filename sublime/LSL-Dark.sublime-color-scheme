@@ -30,7 +30,7 @@
         },
         {
             "name": "variable",
-            "scope": "entity.name.variable",
+            "scope": "variable",
             "foreground": "#EEFFFFEE",
         },
         {
@@ -55,12 +55,12 @@
         },
         {
             "name": "user function",
-            "scope": "entity.name.userfunction",
+            "scope": "entity.name.function",
             "foreground": "#82AAFF",
         },
         {
             "name": "state",
-            "scope": "entity.name.state",
+            "scope": "keyword.declaration.state",
             "foreground": "#FFCB6B",
         },
         {
