@@ -3,7 +3,6 @@
     "selector": "source.lsl",
     "file_patterns": ["*.lsl"],
     "encoding": "utf-8",
-    "word_wrap": true,
     "quiet": true,
-    "cmd": ["lslint", "-ip", "$file"]
+    "target": "lsl_build"
 }
