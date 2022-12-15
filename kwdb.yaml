@@ -8268,7 +8268,7 @@ llLinksetDataCountKeys:
 llLinksetDataWrite:
   type: integer
   params:
-    - name: key
+    - name: name
       type: string
     - name: value
       type: string
@@ -8276,39 +8276,39 @@ llLinksetDataWrite:
 llLinksetDataWriteProtected:
   type: integer
   params:
-    - name: key
+    - name: name
       type: string
     - name: value
       type: string
-    - name: password
+    - name: pass
       type: string
   scope: function
 llLinksetDataRead:
   type: string
   params:
-    - name: key
+    - name: name
       type: string
   scope: function
 llLinksetDataReadProtected:
   type: string
   params:
-    - name: key
+    - name: name
       type: string
-    - name: password
+    - name: pass
       type: string
   scope: function
 llLinksetDataDelete:
   type: integer
   params:
-    - name: key
+    - name: name
       type: string
   scope: function
 llLinksetDataDeleteProtected:
   type: integer
   params:
-    - name: key
+    - name: name
       type: string
-    - name: password
+    - name: pass
       type: string
   scope: function
 llLinksetDataFindKeys:
@@ -8637,7 +8637,7 @@ linkset_data:
   params:
     - name: action
       type: integer
-    - name: key
+    - name: name
       type: string
     - name: value
       type: string
