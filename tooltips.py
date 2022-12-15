@@ -36,14 +36,14 @@ class LslTooltips(sublime_plugin.EventListener):
                 return
 
             if 'type' in result or word.startswith('ll'):
-                return_value = '({}) '.format(result['type']) if 'type' in result else ''
-                params = ''
+                return_value = '({}) '.format(result.get('type', 'void'))
+                params = '()'
                 if 'params' in result:
                     params = '({})'.format(
                         ', '.join('{} <u>{}</u>'.format(
                             param['type'], param['name']) for param in result['params']
                     ))
-                else:
+                elif not word.startswith('ll'):
                     params = ''
                 has_value = ' = {}'.format(str(result['value'])) if 'value' in result else ''
                 has_value = has_value.replace('<' , '&lt;').replace('>', '&gt;')
