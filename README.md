@@ -19,6 +19,8 @@ Requires the [SublimeLinter](https://github.com/SublimeLinter/SublimeLinter) pac
 You can install SublimeLinter through Package Control.
 Make sure the lslint binary is in your path or you can add it to SublimeLinter's  [“paths” setting](http://www.sublimelinter.com/en/stable/troubleshooting.html#adding-to-the-paths-setting).
 
+The lslint package does not currently offer the latest version in binary form. If you can't compile this yourself then you can download the latest [builtins.txt](https://raw.githubusercontent.com/Makopo/lslint/master/builtins.txt) and put it inside the folder you stored lslint in. You have to remove the first line of builtins.txt or it will NOT be recognized.
+
 
 ## Settings  
 Open the settings via `Preferences > Package Settings > LSL-Plus > Settings` from the main Sublime menu.
