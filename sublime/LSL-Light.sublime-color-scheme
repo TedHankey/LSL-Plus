@@ -1,0 +1,57 @@
+{
+    "name": "LSL Color Scheme - Light",
+    "globals":
+    {
+        "background": "#f2f0ec",
+        "foreground": "#2d2d2d",
+        "caret": "#2d2d2d",
+        "line_highlight": "#d3d0c8",
+        "gutter_foreground": "#474747",
+        "selection": "#f1e8a4",
+        "selection_foreground": "#2d2d2d",
+        "inactive_selection": "#d3d0c8",
+        "highlight": "#f1e8a4",
+        "find_highlight": "#cd4d26",
+    },
+    "rules":
+    [
+        {
+            "scope": "comment",
+            "foreground": "#cd4d26",
+        },
+        {
+            "scope": "storage.type",
+            "foreground": "#006600"
+        },
+        {
+            "scope": "support.function.event",
+            "foreground": "#336699"
+        },
+        {
+            "name": "state",
+            "scope": "entity.name.state",
+            "foreground": "#820124",
+        },
+        {
+            "scope": "string",
+            "foreground": "#006600"
+        },
+        {
+            "scope": "support.function.builtin",
+            "foreground": "#820124"
+        },
+        {
+            "scope": "constant",
+            "foreground": "#242687"
+        },
+        {
+            "scope": "keyword.control",
+            "foreground": "#0000cd"
+        },
+        {
+            "scope": "invalid",
+            "foreground": "#f2f0ec",
+            "background": "#820124"
+        }
+    ]
+}

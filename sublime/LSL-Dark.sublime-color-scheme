@@ -1,0 +1,83 @@
+{
+    "name": "LSL Color Scheme - Dark",
+    "globals":
+    {
+        "background": "#1f1f1f",
+        "foreground": "#d6d6d6",
+        "caret": "#9e9916",
+        "line_highlight": "#40403f",
+        "selection": "#DDF0FF33",
+        "brackets_options": "foreground bold",
+        "brackets_foreground": "#E2AE27",
+        "bracket_contents_foreground": "#E2AE27"
+    },
+    "rules":
+    [
+        {
+            "name": "comment",
+            "scope": "comment",
+            "foreground": "#797979",
+        },
+        {
+            "name": "string",
+            "scope": "string",
+            "foreground": "#C3E88D",
+        },
+        {
+            "name": "storage type",
+            "scope": "storage.type",
+            "foreground": "#C792EA",
+        },
+        {
+            "name": "variable",
+            "scope": "entity.name.variable",
+            "foreground": "#EEFFFFEE",
+        },
+        {
+            "name": "keyword control",
+            "scope": "keyword.control",
+            "foreground": "#C792EA",
+        },
+        {
+            "name": "keyword operator",
+            "scope": "keyword.operator",
+            "foreground": "#89DDFF",
+        },
+        {
+            "name": "constant",
+            "scope": "constant",
+            "foreground": "#F78C6C",
+        },
+        {
+            "name": "builtin function",
+            "scope": "support.function",
+            "foreground": "#82AAFF",
+        },
+        {
+            "name": "user function",
+            "scope": "entity.name.userfunction",
+            "foreground": "#82AAFF",
+        },
+        {
+            "name": "state",
+            "scope": "entity.name.state",
+            "foreground": "#FFCB6B",
+        },
+        {
+            "name": "event",
+            "scope": "support.function.event",
+            "foreground": "#FFCB6B",
+        },
+        {
+            "name": "punctuation",
+            "scope": "punctuation.section, punctuation.terminator, punctuation.separator",
+            "foreground": "#89DDFF",
+        },
+        {
+            "name": "invalid",
+            "scope": "invalid",
+            "foreground": "#EEFFFF",
+            "background": "#6900ad",
+        }
+    ]
+}

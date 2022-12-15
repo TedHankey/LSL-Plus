@@ -1,0 +1,28 @@
+[
+    {
+        "caption": "Preferences",
+        "id": "preferences",
+        "children": [
+            {
+                "caption": "Package Settings",
+                "id": "package-settings",
+                "children": [
+                    {
+                        "caption": "LSL-Plus",
+                        "id": "lslplus-settings",
+                        "children": [
+                            {
+                                "caption": "Settings",
+                                "command": "edit_settings", "args":
+                                {
+                                    "base_file": "${packages}/LSL-Plus/sublime/LSL.sublime-settings",
+                                    "default": "$0// These settings override the default settings for the LSL syntax.\n{\n\t// \"color_scheme\": \"LSL-DarkPlain.sublime-color-scheme\"\n}\n"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

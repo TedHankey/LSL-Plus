@@ -1,0 +1,85 @@
+{
+    "name": "LSL Color Scheme - LeetDark",
+    "globals":
+    {
+        "background": "#1f1f1f",
+        "foreground": "#d6d6d6",
+        "caret": "#9e9916",
+        "line_highlight": "#40403f",
+        "selection": "#DDF0FF33",
+        "brackets_options": "foreground bold",
+        "brackets_foreground": "#E2AE27",
+        "bracket_contents_options": "stippled_underline",
+        "bracket_contents_foreground": "#E2AE27"
+    },
+    "rules":
+    [
+        {
+            "name": "comment",
+            "scope": "comment",
+            "foreground": "#6d6d6d",
+        },
+        {
+            "name": "string",
+            "scope": "string",
+            "foreground": "#fbe3bf",
+        },
+        {
+            "name": "storage type",
+            "scope": "storage.type",
+            "foreground": "#fbdfb5",
+        },
+        {
+            "name": "variable",
+            "scope": "entity.name.variable",
+            "foreground": "#f8f8f0",
+            // "foreground": "#e5a5e0",
+        },
+        {
+            "name": "keyword control",
+            "scope": "keyword.control",
+            "foreground": "#ff5e5e",
+        },
+        {
+            "name": "keyword operator",
+            "scope": "keyword.operator",
+            "foreground": "#ff5e5e",
+        },
+        {
+            "name": "constant",
+            "scope": "constant",
+            "foreground": "#ff8942",
+        },
+        {
+            "name": "builtin function",
+            "scope": "support.function",
+            "foreground": "#8cdaff",
+        },
+        {
+            "name": "user function",
+            "scope": "entity.name.userfunction",
+            "foreground": "#8cdaff",
+        },
+        {
+            "name": "state",
+            "scope": "entity.name.state",
+            "foreground": "#ffc14d",
+        },
+        {
+            "name": "event",
+            "scope": "support.function.event",
+            "foreground": "#ffc14d",
+        },
+        {
+            "name": "punctuation",
+            "scope": "punctuation.section, punctuation.terminator, punctuation.separator",
+            "foreground": "#f8f8f0",
+        },
+        {
+            "name": "invalid",
+            "scope": "invalid",
+            "foreground": "#F8F8F2",
+            "background": "#7E0800",
+        }
+    ]
+}
