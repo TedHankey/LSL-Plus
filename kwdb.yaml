@@ -7974,30 +7974,42 @@ llXorBase64:
       type: string
   scope: function
 llScaleByFactor:
+  description: |-
+    Attempts to resize the entire object by scaling_factor, maintaining the size-position ratios of the prims.
   type: integer
   params:
     - name: scaling_factor
       type: float
   scope: function
 llGetMinScaleFactor:
+  description: |-
+    Returns a float that is the smallest scaling factor that can be used with llScaleByFactor to resize the object. This minimum is determined by the prim scale limits.
   type: float
   scope: function
 llGetMaxScaleFactor:
+  description: |-
+    Returns a float that is the largest scaling factor that can be used with llScaleByFactor to resize the object. This maximum is determined by the Linkability Rules and prim scale limits.
   type: float
   scope: function
 llAgentInExperience:
+  description: |-
+    Determines whether or not the specified agent is in the script's experience.
   type: integer
   params:
     - name: agent
       type: key
   scope: function
 llGetExperienceDetails:
+  description: |-
+    Returns a list of details about the experience. This list has 6 components: [string experience_name, key owner_id, key experience_id, integer state, string state_message, key group_id].
   type: list
   params:
     - name: experience_id
       type: key
   scope: function
 llRequestExperiencePermissions:
+  description: |-
+    Asks the agent for permission to participate in the script's Experience. This request is similar to llRequestPermissions.
   params:
     - name: agent
       type: key
@@ -8005,6 +8017,8 @@ llRequestExperiencePermissions:
       type: string
   scope: function
 llReadKeyValue:
+  description: |-
+    Start an asynchronous transaction to read the value associated with the specified key (k) and the script's Experience.
   type: key
   params:
     - name: k
@@ -8566,21 +8580,21 @@ moving_end:
   scope: event
 on_rez:
   description: |-
-    Triggered when task is rezzed in from inventory or another task
+    Triggered when an object is rezzed (by script or by user). Also triggered in attachments when a user logs in, or when the object is attached from inventory.
   params:
     - name: start_param
       type: integer
   scope: event
 object_rez:
   description: |-
-    Triggered when task rezzes in another task
+    Triggered when the object rezzes an object.
   params:
     - name: id
       type: key
   scope: event
 link_message:
   description: |-
-    Triggered when task receives a link message via LLMessageLinked library function call
+    Triggered when task receives a link message via llMessageLinked library function call
   params:
     - name: sender_num
       type: integer
@@ -8593,7 +8607,7 @@ link_message:
   scope: event
 changed:
   description: |-
-    Triggered various event change the task (test change with CHANGED_INVENTORY, CHANGED_COLOR, CHANGED_SHAPE, CHANGED_SCALE, CHANGED_TEXTURE, CHANGED_LINK, CHANGED_ALLOWED_DROP, CHANGED_OWNER, CHANGED_REGION, CHANGED_TELEPORT, CHANGED_REGION_START, CHANGED_MEDIA)
+    Various changes to the object/prim trigger this event.
   params:
     - name: change
       type: integer
