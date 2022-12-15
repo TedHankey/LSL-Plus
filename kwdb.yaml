@@ -4131,38 +4131,56 @@ ENV_NO_PERMISSIONS:
   value: -9
   scope: constant
 LINKSETDATA_RESET:
+  description: |-
+    The linkset's datastore has been cleared by a call to llLinksetDataReset.
   type: integer
   value: 0
   scope: constant
 LINKSETDATA_UPDATE:
+  description: |-
+    A key in the linkset's datastore has been assigned a new value with llLinksetDataWrite.
   type: integer
   value: 1
   scope: constant
 LINKSETDATA_DELETE:
+  description: |-
+    A key in the linkset's datastore has been deleted. Either through a call to llLinksetDataDelete or llLinksetDataWrite with an empty value.
   type: integer
   value: 2
   scope: constant
 LINKSETDATA_OK:
+  description: |-
+    The name:value pair was written to the datastore.
   type: integer
   value: 0
   scope: constant
 LINKSETDATA_EMEMORY:
+  description: |-
+    A name:value pair was too large to write to the linkset datastore.
   type: integer
   value: 1
   scope: constant
 LINKSETDATA_ENOKEY:
+  description: |-
+    The name supplied to llLinksetDataWrite was empty.
   type: integer
   value: 2
   scope: constant
 LINKSETDATA_EPROTECTED:
+  description: |-
+    The name:value pair has been protected from overwrite in the linkset's datastore.
   type: integer
   value: 3
   scope: constant
 LINKSETDATA_NOTFOUND:
+  description: |-
+    The named key could not be found in the linkset's datastore when attempting to delete it.
   type: integer
   value: 4
   scope: constant
 LINKSETDATA_NOUPDATE:
+  description: |-
+    The name:value stored in the linkset was not changed by the write operation because the value stored matches the value written.
   type: integer
   value: 5
   scope: constant
@@ -8258,14 +8276,22 @@ llSHA256String:
       type: string
   scope: function
 llLinksetDataReset:
+  description: |-
+    Erases all name:value pairs stored in the linkset's datastore. When this function is called the linkset_data event is triggered in all scripts running in the linkset with an action of LINKSETDATA_RESET.
   scope: function
 llLinksetDataAvailable:
+  description: |-
+    Returns the number of bytes available in the linkset's datastore.
   type: integer
   scope: function
 llLinksetDataCountKeys:
+  description: |-
+    Returns the number of unique keys that have been stored in the linkset's datastore.
   type: integer
   scope: function
 llLinksetDataWrite:
+  description: |-
+    Creates or updates an unprotected name:value pair from the linkset's datastore. Returns 0 on success or an error code on failure.
   type: integer
   params:
     - name: name
@@ -8274,6 +8300,8 @@ llLinksetDataWrite:
       type: string
   scope: function
 llLinksetDataWriteProtected:
+  description: |-
+    Creates or updates a protected name:value pair from the linkset's datastore. Returns 0 on success or an error code on failure.
   type: integer
   params:
     - name: name
@@ -8284,12 +8312,16 @@ llLinksetDataWriteProtected:
       type: string
   scope: function
 llLinksetDataRead:
+  description: |-
+    Returns an unprotected value from the linkset's datastore for the provided name. Returns an empty string if name is not found.
   type: string
   params:
     - name: name
       type: string
   scope: function
 llLinksetDataReadProtected:
+  description: |-
+    Returns a protected value from the linkset's datastore for the provided name. Returns an empty string if name is not found.
   type: string
   params:
     - name: name
@@ -8298,12 +8330,16 @@ llLinksetDataReadProtected:
       type: string
   scope: function
 llLinksetDataDelete:
+  description: |-
+    Removes an unprotected name:value pair from the linkset's datastore.
   type: integer
   params:
     - name: name
       type: string
   scope: function
 llLinksetDataDeleteProtected:
+  description: |-
+    Removes a protected name:value pair from the linkset's datastore.
   type: integer
   params:
     - name: name
@@ -8312,6 +8348,8 @@ llLinksetDataDeleteProtected:
       type: string
   scope: function
 llLinksetDataFindKeys:
+  description: |-
+    Returns a list of up to count keys from the datastore that match pattern, starting at the one indicated by start. If count is less than 1, then all keys between start and the end which match pattern are returned.
   type: list
   params:
     - name: pattern
@@ -8322,6 +8360,8 @@ llLinksetDataFindKeys:
       type: integer
   scope: function
 llLinksetDataListKeys:
+  description: |-
+    Returns a list of up to count keys in the datastore, starting at the one indicated by start. If count is less than 1, then all keys between start and the end are returned.
   type: list
   params:
     - name: start
@@ -8634,6 +8674,8 @@ experience_permissions_denied:
       type: integer
   scope: event
 linkset_data:
+  description: |-
+    Fires in all scripts in a linkset whenever the datastore has been modified through a call to one of the llLinksetData functions.
   params:
     - name: action
       type: integer
