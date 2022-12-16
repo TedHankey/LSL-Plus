@@ -66,7 +66,7 @@ class LslTooltips(sublime_plugin.EventListener):
                         else:
                             desc_with_links += desc_word
 
-                    except Exception as e:
+                    except KeyError as e:
                         desc_with_links += desc_word
 
                     desc_with_links += ' '
@@ -87,5 +87,5 @@ class LslTooltips(sublime_plugin.EventListener):
             )
             return
 
-        except Exception as e:
+        except KeyError as e:
             view.hide_popup()
