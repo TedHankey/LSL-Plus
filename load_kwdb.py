@@ -1,6 +1,5 @@
 # coding: utf-8
 
-from threading import Thread
 import sublime
 from ruamel.yaml import YAML
 
@@ -13,8 +12,7 @@ def load_data():
     KEYWORD_DATA = YAML().load(sublime.load_resource(sourcePath))
         
 def plugin_loaded():
-    thread = Thread(target = load_data)
-    thread.start()
+    sublime.set_timeout_async(load_data, 2500)
 
 def plugin_unloaded():
     global KEYWORD_DATA
