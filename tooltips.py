@@ -53,7 +53,24 @@ class LslTooltips(sublime_plugin.EventListener):
 
             if 'description' in result:
                 description = result['description'].replace('<' , '&lt;').replace('>', '&gt;')
-                tooltip_lines.append('<pre>{}</pre><br><br>'.format(description))
+                desc_with_links = ''
+                words = description.split()
+                for desc_word in words:
+                    try:
+                        desc_word_nopunct = desc_word.translate(str.maketrans('', '', '.,'))
+                        link = KEYWORD_DATA[desc_word_nopunct]
+                        if link is not None and (link.get('scope') == 'function' or link.get('scope') == 'constant'):
+                            desc_with_links += '<a href="' + SL_WIKI + desc_word_nopunct + '">' + desc_word_nopunct + '</a>'
+                            if desc_word[-1] in ['.', ',']:
+                                desc_with_links += desc_word[-1]
+                        else:
+                            desc_with_links += desc_word
+
+                    except Exception as e:
+                        desc_with_links += desc_word
+
+                    desc_with_links += ' '
+                tooltip_lines.append('<pre>{}</pre><br><br>'.format(desc_with_links))
             if 'status' in result:
                 tooltip_lines.append('Status: {}'.format(result['status']))
             if 'delay' in result:
