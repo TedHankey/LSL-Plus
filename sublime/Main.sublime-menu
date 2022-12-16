@@ -16,7 +16,7 @@
                                 "command": "edit_settings", "args":
                                 {
                                     "base_file": "${packages}/LSL-Plus/sublime/LSL.sublime-settings",
-                                    "default": "$0// These settings override the default settings for the LSL syntax.\n{\n\t// \"color_scheme\": \"LSL-DarkPlain.sublime-color-scheme\"\n}\n"
+                                    "default": "$0// These settings override the default settings for the LSL syntax.\n{\n\t// \"show_definitions\": true,\n\n\t// \"color_scheme\": \"LSL-Dark.sublime-color-scheme\"\n}\n"
                                 }
                             }
                         ]

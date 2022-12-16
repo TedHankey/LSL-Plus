@@ -26,7 +26,7 @@ The lslint package does not currently offer the latest version in binary form. I
 Open the settings via `Preferences > Package Settings > LSL-Plus > Settings` from the main Sublime menu.
 
 **popups**:  
-By default Sublime shows a popup for symbol definitions. To be able to show info popups LSL-Plus turns this off for .lsl files.  You can turn this back on if you like, but info popups will not be shown.
+By default Sublime shows a popup for symbol definitions. To be able to show info popups LSL-Plus turns this off for .lsl files by setting "show_definitions" to false.  You can turn this back on if you like, but info popups will not be shown.
 
 **color scheme**:  
 Four color schemes are provided, but not active by default. Pick the one you prefer.
