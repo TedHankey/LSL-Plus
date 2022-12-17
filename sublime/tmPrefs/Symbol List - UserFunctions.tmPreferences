@@ -2,7 +2,7 @@
 <plist version="1.0">
 <dict>
 	<key>scope</key>
-	<string>entity.name.userfunction.lsl</string>
+	<string>entity.name.function.lsl</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>

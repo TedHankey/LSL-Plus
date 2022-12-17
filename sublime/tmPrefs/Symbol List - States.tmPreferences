@@ -2,7 +2,7 @@
 <plist version="1.0">
 <dict>
 	<key>scope</key>
-	<string>entity.name.state.lsl</string>
+	<string>keyword.declaration.state.lsl</string>
 	<key>settings</key>
 	<dict>
 		<key>showInSymbolList</key>
