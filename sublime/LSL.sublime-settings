@@ -7,8 +7,8 @@
 	// Sets the color scheme used for syntax coloring.
 	// No scheme is set by default but the following are provided:
 	//
-	// "color_scheme": "LSL-Dark.sublime-color-scheme"
-	// "color_scheme": "LSL-DarkSoft.sublime-color-scheme"
-	// "color_scheme": "LSL-DarkPlain.sublime-color-scheme"
-	// "color_scheme": "LSL-Light.sublime-color-scheme"
+	// "color_scheme": "LSL-Dark.hidden-color-scheme"
+	// "color_scheme": "LSL-DarkSoft.hidden-color-scheme"
+	// "color_scheme": "LSL-DarkPlain.hidden-color-scheme"
+	// "color_scheme": "LSL-Light.hidden-color-scheme"
 }
