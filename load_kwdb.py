@@ -3,7 +3,6 @@
 import sublime
 from ruamel.yaml import YAML
 
-
 KEYWORD_DATA = None
 
 def load_data():

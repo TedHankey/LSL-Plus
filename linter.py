@@ -3,7 +3,6 @@
 import os
 import shutil
 
-import sublime
 from SublimeLinter.lint import Linter, util
 
 
