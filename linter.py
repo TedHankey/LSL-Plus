@@ -34,8 +34,8 @@ class Lslint(Linter):
         path = os.path.dirname(shutil.which("lslint"))
         builtins_txt = os.path.join(path, 'builtins.txt')
         if os.path.exists(builtins_txt):
-            command = ['lslint', '-i', '-b'] + [builtins_txt]
+            command = ['lslint', '-i', '-b'] + [builtins_txt] + ['${temp_file}']
         else:
-            command = ['lslint', '-i']
+            command = ['lslint', '-i', '${temp_file}']
 
         return command
