@@ -1,7 +1,6 @@
 {
     "*": {
         ">=4050": [
-            "ruamel-yaml",
             "sublime_lib"
         ]
     }
