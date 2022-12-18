@@ -52,7 +52,7 @@ class LslTooltips(sublime_plugin.EventListener):
                 tooltip_lines.append('<p><a href="{}{}">{}</a></p>'.format(SL_WIKI, word, word))
 
             if 'description' in result:
-                description = result['description'].replace('<' , '&lt;').replace('>', '&gt;')
+                description = result['description'].replace('<', '&lt;').replace('>', '&gt;').replace('\n', '<br>')
                 desc_with_links = ''
                 words = description.split()
                 for desc_word in words:
