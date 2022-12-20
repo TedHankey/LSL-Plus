@@ -11053,11 +11053,11 @@
     },
     "default": {
         "description": "Name of default state that all scripts must have.",
-        "scope": "entity.name.class.state"
+        "scope": "keyword.declaration.state"
     },
     "state": {
         "description": "Keyword to indicate state block or state transition.\nState transitions within user-defined function declarations must be included within conditional blocks to work as intended.",
-        "scope": "entity.name.class.state"
+        "scope": "keyword.declaration.state"
     },
     "integer": {
         "description": "Integer type.",

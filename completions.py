@@ -130,7 +130,7 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_id = sublime.KIND_ID_TYPE
             kind_symbol = 't'
             kind_desc = 'type'
-        elif result.get('scope') == 'entity.name.class.state':
+        elif result.get('scope') == 'keyword.declaration.state':
             completion = word
             if word == 'default':
                 completion = 'default\n{\n\t$0\n}'
@@ -273,7 +273,7 @@ class LSLCompletions(sublime_plugin.EventListener):
             if view.match_selector(loc, 'source.lsl - (meta.state, meta.function)'):
                 if (result.get('scope') == 'storage.type'
                     or result.get('scope') == 'constant'
-                    or result.get('scope') == 'entity.name.class.state'
+                    or result.get('scope') == 'keyword.declaration.state'
                 ):
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
@@ -295,7 +295,7 @@ class LSLCompletions(sublime_plugin.EventListener):
             # Inside an event or userfunction.
             elif view.match_selector(loc, 'meta.event') or view.match_selector(loc, 'meta.function'):
                 # Can't have state or event declaration inside of an event or userfunction.
-                if result.get('scope') == 'event' or result.get('scope') == 'entity.name.class.state':
+                if result.get('scope') == 'event' or result.get('scope') == 'keyword.declaration.state':
                     continue
                 if fuzzy_match(prefix, shortened_word)[0]:
                     item = self.format_result(word, result)
