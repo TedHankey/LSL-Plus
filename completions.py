@@ -297,6 +297,10 @@ class LSLCompletions(sublime_plugin.EventListener):
                 # Can't have state or event declaration inside of an event or userfunction.
                 if result.get('scope') == 'event' or result.get('scope') == 'keyword.declaration.state':
                     continue
+                # Don't suggest constants outside of function parameters
+                if (not view.match_selector(loc, 'meta.function-call') and
+                result.get('scope') == 'constant'):
+                    continue
                 if fuzzy_match(prefix, shortened_word)[0]:
                     item = self.format_result(word, result)
                     completions.append((item))
