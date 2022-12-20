@@ -68,7 +68,7 @@ def fuzzy_match(pattern, instring, adj_bonus=5, sep_bonus=10, camel_bonus=10,
             prev_match = False
 
         prev_lower = s_char == s_lower and s_lower != s_upper
-        prev_sep = s_char in '_ '
+        prev_sep = s_char in '_'
 
         s_idx += 1
 
