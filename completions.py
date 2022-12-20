@@ -180,7 +180,6 @@ class LSLCompletions(sublime_plugin.EventListener):
             character_count += len(line) + 1
             if 'meta.function.lsl' in scope:
                 type_vars = re.search(r'(?:((?:' + types + R'\s+)?(?:\b([A-Za-z_]\w*)\b)))(?=\s*\()', line)
-                #print('find_variables: userdefs = ', type_vars.groups())
                 if fuzzy_match(prefix, type_vars.group(3))[0]:
                     return_value = type_vars.group(2) if type_vars.group(2) else 'void'
                     completions.append(
@@ -285,8 +284,9 @@ class LSLCompletions(sublime_plugin.EventListener):
                         item = self.format_result(word, result)
                         completions.append((item))
             # Event and userfunction parameters.
-            elif (view.match_selector(loc, 'meta.event.parameters') or
-            view.match_selector(loc, 'meta.function.parameters')):
+            elif (view.match_selector(loc, 'meta.event.parameters')
+                or view.match_selector(loc, 'meta.function.parameters')
+            ):
                 # Event and userfunction parameters only allow storage types.
                 if result.get('scope') == 'storage.type':
                     if fuzzy_match(prefix, word)[0]:
@@ -298,8 +298,9 @@ class LSLCompletions(sublime_plugin.EventListener):
                 if result.get('scope') == 'event' or result.get('scope') == 'keyword.declaration.state':
                     continue
                 # Don't suggest constants outside of function parameters
-                if (not view.match_selector(loc, 'meta.function-call') and
-                result.get('scope') == 'constant'):
+                if (not view.match_selector(loc, 'meta.function-call')
+                    and result.get('scope') == 'constant'
+                ):
                     continue
                 if fuzzy_match(prefix, shortened_word)[0]:
                     item = self.format_result(word, result)
