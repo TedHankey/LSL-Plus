@@ -201,19 +201,17 @@ class LSLCompletions(sublime_plugin.EventListener):
                 continue
             else:
                 result = re.findall(regex, line)
-                if result:
-                    for type_vars in result:
-                        if type_vars:
-                            if fuzzy_match(prefix, type_vars[1])[0]:
-                                completions.append(
-                                sublime.CompletionItem(
-                                    trigger = type_vars[1],
-                                    annotation = 'global ' + type_vars[0] + ' variable',
-                                    completion = type_vars[1],
-                                    completion_format = sublime.COMPLETION_FORMAT_TEXT,
-                                    kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                                    details = 'global ' + type_vars[0]
-                                ))
+                for type_vars in result:
+                    if fuzzy_match(prefix, type_vars[1])[0]:
+                        completions.append(
+                        sublime.CompletionItem(
+                            trigger = type_vars[1],
+                            annotation = 'global ' + type_vars[0] + ' variable',
+                            completion = type_vars[1],
+                            completion_format = sublime.COMPLETION_FORMAT_TEXT,
+                            kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
+                            details = 'global ' + type_vars[0]
+                        ))
  
         # Find local and event parameter variables.
         # TODO: remove vars in condional blocks and comments
