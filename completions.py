@@ -108,7 +108,8 @@ class LSLCompletions(sublime_plugin.EventListener):
             if 'params' in result:
                 completion = '{}({})'.format(
                     word,
-                    ', '.join('${{{}:{} {}}}'.format(idx, param['type'], param['name']) for idx, param in enumerate(result['params'], 1))
+                    ', '.join('${{{}:{} {}}}'.format(
+                        idx, param['type'], param['name']) for idx, param in enumerate(result['params'], 1))
                 )
             else:
                 completion = '{}()'.format(word)
@@ -228,19 +229,17 @@ class LSLCompletions(sublime_plugin.EventListener):
                 break
         for line in content.split('\n'):
             result = re.findall(regex, line)
-            if result:
-                for type_vars in result:
-                    if type_vars:
-                        if fuzzy_match(prefix, type_vars[1])[0]:
-                            completions.append(
-                            sublime.CompletionItem(
-                                trigger = type_vars[1],
-                                annotation = type_vars[0] + ' variable',
-                                completion = type_vars[1],
-                                completion_format = sublime.COMPLETION_FORMAT_TEXT,
-                                kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                                details = type_vars[0]
-                            ))
+            for type_vars in result:
+                if fuzzy_match(prefix, type_vars[1])[0]:
+                    completions.append(
+                    sublime.CompletionItem(
+                        trigger = type_vars[1],
+                        annotation = type_vars[0] + ' variable',
+                        completion = type_vars[1],
+                        completion_format = sublime.COMPLETION_FORMAT_TEXT,
+                        kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
+                        details = type_vars[0]
+                    ))
 
 
     def on_query_completions(self, view, prefix, locations):
