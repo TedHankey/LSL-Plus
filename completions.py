@@ -168,7 +168,6 @@ class LSLCompletions(sublime_plugin.EventListener):
         # Find global variables and userfunction names.
         # Loops through lines starting from the top and breaks on encountering
         # the meta.state scope.
-        # TODO: store userfunction params so they can be used as a snippet
         
         types = r'(\bfloat|integer|key|list|quaternion|rotation|string|vector\b)'
         regex = r'(?:(?:' + types + R'\s+)(?:\b([A-Za-z_]\w*)\b))'
@@ -179,19 +178,23 @@ class LSLCompletions(sublime_plugin.EventListener):
             scope = view.scope_name(character_count)
             character_count += len(line) + 1
             if 'meta.function.lsl' in scope:
-                type_vars = re.search(r'(?:((?:' + types + R'\s+)?(?:\b([A-Za-z_]\w*)\b)))(?=\s*\()', line)
-                if fuzzy_match(prefix, type_vars.group(3))[0]:
-                    return_value = type_vars.group(2) if type_vars.group(2) else 'void'
+                result = re.findall(r'(?:(?:' + types + R'\s+)?(?:\b([A-Za-z_]\w*)\b))', line)
+                if fuzzy_match(prefix, result[0][1])[0]:
+                    return_value = result[0][0] if result[0][0] else 'void'
+                    completion = '{}({})'.format(
+                        result[0][1],
+                        ', '.join('${{{}:{} {}}}'.format(
+                            idx, type_vars[0], type_vars[1]) for idx, type_vars in enumerate(result[1:], 1))
+                    )
                     completions.append(
                     sublime.CompletionItem(
-                        trigger = type_vars.group(3),
+                        trigger = result[0][1],
                         annotation = '(' + return_value + ') function',
-                        completion = type_vars.group(3),
-                        completion_format = sublime.COMPLETION_FORMAT_TEXT,
+                        completion = completion,
+                        completion_format = sublime.COMPLETION_FORMAT_SNIPPET,
                         kind = (sublime.KIND_ID_COLOR_PINKISH, 'f', 'function'),
                         details = 'user defined function'
                     ))
-                continue
             elif 'meta.state' in scope:
                 break
             elif 'meta.function.body' in scope:
