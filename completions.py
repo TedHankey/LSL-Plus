@@ -205,7 +205,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                                 completions.append(
                                 sublime.CompletionItem(
                                     trigger = type_vars[1],
-                                    annotation = 'variable',
+                                    annotation = 'global ' + type_vars[0] + ' variable',
                                     completion = type_vars[1],
                                     completion_format = sublime.COMPLETION_FORMAT_TEXT,
                                     kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
@@ -234,7 +234,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                             completions.append(
                             sublime.CompletionItem(
                                 trigger = type_vars[1],
-                                annotation = 'variable',
+                                annotation = type_vars[0] + ' variable',
                                 completion = type_vars[1],
                                 completion_format = sublime.COMPLETION_FORMAT_TEXT,
                                 kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
