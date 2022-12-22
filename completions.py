@@ -215,7 +215,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                         ))
  
         # Find local and event parameter variables.
-        # TODO: remove vars in condional blocks and comments
+        # TODO: remove vars in conditional blocks and comments
         region, regions = [], []
         if view.match_selector(loc, 'meta.event.body'):
             region = view.expand_to_scope(loc, 'meta.event.body.lsl')
@@ -227,14 +227,15 @@ class LSLCompletions(sublime_plugin.EventListener):
             if region.a == reg.b:
                 content = view.substr(sublime.Region(reg.a, loc))
                 break
-        for line in content.split('\n'):
+        for idx, line in enumerate(content.split('\n')):
             result = re.findall(regex, line)
             for type_vars in result:
                 if fuzzy_match(prefix, type_vars[1])[0]:
+                    annotation_type = ' parameter' if idx == 0 else ' variable'
                     completions.append(
                     sublime.CompletionItem(
                         trigger = type_vars[1],
-                        annotation = type_vars[0] + ' variable',
+                        annotation = type_vars[0] + annotation_type,
                         completion = type_vars[1],
                         completion_format = sublime.COMPLETION_FORMAT_TEXT,
                         kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
