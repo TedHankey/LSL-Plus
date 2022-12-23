@@ -214,8 +214,8 @@ class LSLCompletions(sublime_plugin.EventListener):
                             details = 'global ' + type_vars[0]
                         ))
  
-        # Find local and event parameter variables.
-        # TODO: remove vars in conditional blocks and comments
+        # Find local and event/user-function parameter variables.
+        # TODO: Discard variables that are not within scope.
         region, regions = [], []
         if view.match_selector(loc, 'meta.event.body'):
             region = view.expand_to_scope(loc, 'meta.event.body.lsl')
@@ -223,25 +223,38 @@ class LSLCompletions(sublime_plugin.EventListener):
         elif view.match_selector(loc, 'meta.function.body'):
             region = view.expand_to_scope(loc, 'meta.function.body.lsl')
             regions = view.find_by_selector('meta.function.lsl')
+
         for reg in regions:
             if region.a == reg.b:
-                content = view.substr(sublime.Region(reg.a, loc))
                 break
-        for idx, line in enumerate(content.split('\n')):
-            result = re.findall(regex, line)
-            for type_vars in result:
-                if fuzzy_match(prefix, type_vars[1])[0]:
-                    annotation_type = ' parameter' if idx == 0 else ' variable'
-                    completions.append(
-                    sublime.CompletionItem(
-                        trigger = type_vars[1],
-                        annotation = type_vars[0] + annotation_type,
-                        completion = type_vars[1],
-                        completion_format = sublime.COMPLETION_FORMAT_TEXT,
-                        kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                        details = type_vars[0]
-                    ))
 
+        point = reg.a
+        regions = []
+        while point < loc:
+            reg = view.find(regex, point)
+            if reg.a > loc:
+                break
+            if not view.match_selector(reg.a, 'comment'):
+                regions.append(reg)
+            point = reg.b
+
+        for reg in regions:
+            if (view.match_selector(reg.a, 'meta.event.parameters')
+                or view.match_selector(reg.a, 'meta.function.parameters')):
+                annotation_type = ' parameter'
+            else:
+               annotation_type = ' variable'
+            type_vars = view.substr(reg).split()
+            if fuzzy_match(prefix, type_vars[1])[0]:
+                completions.append(
+                sublime.CompletionItem(
+                    trigger = type_vars[1],
+                    annotation = type_vars[0] + annotation_type,
+                    completion = type_vars[1],
+                    completion_format = sublime.COMPLETION_FORMAT_TEXT,
+                    kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
+                    details = type_vars[0]
+                ))
 
     def on_query_completions(self, view, prefix, locations):
         # Only suggest completions based on the first cursor.
