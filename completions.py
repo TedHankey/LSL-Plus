@@ -376,14 +376,6 @@ class LSLCompletions(sublime_plugin.EventListener):
                     if not looking_for_vars:
                         looking_for_vars = True
                         self.find_variables(view, prefix, loc)
-            # DEBUG: Only here to see if we missed a case.
-            else:
-                print('DEBUG: completions.py: else -> should not get here')
-                #sublime.message_dialog('DEBUG: completions.py: else -> should not get here')
-                if fuzzy_match(prefix, shortened_word)[0]:
-                    item = self.format_result(word, result)
-                    completions.append((item))
-
 
         completions.sort(key=lambda completion: fuzzy_match(prefix, completion.trigger)[1], reverse=True)
 
