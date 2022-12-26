@@ -3,7 +3,7 @@
 import sublime
 import sublime_plugin
 
-SL_WIKI = 'https://wiki.secondlife.com/wiki/'
+SL_WIKI_URL = 'https://wiki.secondlife.com/wiki/'
 
 
 class LslTooltips(sublime_plugin.EventListener):
@@ -41,15 +41,17 @@ class LslTooltips(sublime_plugin.EventListener):
                 if 'params' in result:
                     params = '({})'.format(
                         ', '.join('{} <u>{}</u>'.format(
-                            param['type'], param['name']) for param in result['params']
-                    ))
+                            param['type'], param['name']) for param in result['params'])
+                    )
                 elif not word.startswith('ll'):
                     params = ''
                 has_value = ' = {}'.format(str(result['value'])) if 'value' in result else ''
                 has_value = has_value.replace('<' , '&lt;').replace('>', '&gt;')
-                tooltip_lines.append('<p>{}<a href="{}{}">{}</a>{}{}</p>'.format(return_value, SL_WIKI, word, word, params, has_value))
+                tooltip_lines.append('<p>{}<a href="{}{}">{}</a>{}{}</p>'.format(
+                    return_value, SL_WIKI_URL, word, word, params, has_value)
+                )
             else:
-                tooltip_lines.append('<p><a href="{}{}">{}</a></p>'.format(SL_WIKI, word, word))
+                tooltip_lines.append('<p><a href="{}{}">{}</a></p>'.format(SL_WIKI_URL, word, word))
 
             if 'description' in result:
                 description = result['description'].replace('<', '&lt;').replace('>', '&gt;').replace('\n', '<br>')
@@ -60,7 +62,8 @@ class LslTooltips(sublime_plugin.EventListener):
                         desc_word_nopunct = desc_word.translate(str.maketrans('', '', '.,'))
                         link = KEYWORD_DATA[desc_word_nopunct]
                         if link is not None and (link.get('scope') == 'function' or link.get('scope') == 'constant'):
-                            desc_with_links += '<a href="' + SL_WIKI + desc_word_nopunct + '">' + desc_word_nopunct + '</a>'
+                            desc_with_links += ('<a href="' + SL_WIKI_URL + desc_word_nopunct
+                                + '">' + desc_word_nopunct + '</a>')
                             if desc_word[-1] in ['.', ',']:
                                 desc_with_links += desc_word[-1]
                         else:
