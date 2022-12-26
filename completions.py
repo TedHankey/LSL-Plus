@@ -332,10 +332,6 @@ class LSLCompletions(sublime_plugin.EventListener):
             # Don't suggest invalid/deprecated completions.
             if result.get('status'):
                 continue
-            # Remove 'll' when needed, to stop it counting against the fuzzy match score.
-            shortened_word = word
-            if word.startswith('ll') and not prefix.startswith('ll'):
-                shortened_word = word[2:]
             # Outside of a state.
             if view.match_selector(loc, 'source.lsl - (meta.state, meta.function)'):
                 if (result.get('scope') == 'storage.type'
@@ -370,6 +366,10 @@ class LSLCompletions(sublime_plugin.EventListener):
                     and result.get('scope') == 'constant'
                 ):
                     continue
+                # Remove 'll' when needed, to stop it counting against the fuzzy match score.
+                shortened_word = word
+                if word.startswith('ll') and not prefix.startswith('ll'):
+                    shortened_word = word[2:]
                 if fuzzy_match(prefix, shortened_word)[0]:
                     item = self.format_result(word, result)
                     completions.append((item))
