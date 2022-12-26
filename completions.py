@@ -166,56 +166,68 @@ class LSLCompletions(sublime_plugin.EventListener):
                 )
 
     def find_variables(self, view, prefix, loc):
-        # Find global variables and userfunction names.
-        # Loops through lines starting from the top and breaks on encountering
-        # the meta.state scope.
-        
+        # Find global variables and userfunctions.
         types = r'(\bfloat|integer|key|list|quaternion|rotation|string|vector\b)'
         regex = r'(?:(?:' + types + R'\s+)(?:\b([A-Za-z_]\w*)\b))'
         
-        content = view.substr(sublime.Region(0, loc))
-        character_count = 0
-        for line in content.split('\n'):
-            scope = view.scope_name(character_count)
-            character_count += len(line) + 1
-            if 'meta.function.lsl' in scope:
-                result = re.findall(r'(?:(?:' + types + R'\s+)?(?:\b([A-Za-z_]\w*)\b))', line)
-                if fuzzy_match(prefix, result[0][1])[0]:
-                    return_value = result[0][0] if result[0][0] else 'void'
-                    completion = '{}({})'.format(
-                        result[0][1],
-                        ', '.join('${{{}:{} {}}}'.format(
-                            idx, type_vars[0], type_vars[1]) for idx, type_vars in enumerate(result[1:], 1))
-                    )
-                    completions.append(
+        # Find global variables.
+        regions = []
+        reg = sublime.Region(0, 0)
+        pos = 0
+        while pos < loc:
+            pos = reg.b
+            reg = view.find(regex, pos)
+            if reg.a > loc or reg.a == -1:
+                break
+            elif view.match_selector(reg.a, 'meta.state'):
+                break
+            elif view.match_selector(reg.a, 'meta.function'):
+                continue
+            elif view.match_selector(reg.a, 'comment'):
+                continue
+            regions.append(reg)
+
+        for reg in regions:
+            type_vars = view.substr(reg).split()
+            if fuzzy_match(prefix, type_vars[1])[0]:
+                completions.append(
+                    sublime.CompletionItem(
+                        trigger = type_vars[1],
+                        annotation = 'global ' + type_vars[0] + ' variable',
+                        completion = type_vars[1],
+                        completion_format = sublime.COMPLETION_FORMAT_TEXT,
+                        kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
+                        details = 'global ' + type_vars[0])
+                )
+
+        # Find userfunctions and add the parameters so they can be
+        # used in a snippet.
+        functions = view.find_by_selector('meta.function.lsl')
+        functions_regex = r'(?:(?:' + types + R'\s+)?(?:\b([A-Za-z_]\w*)\b))'
+        for function in functions:
+            line = view.substr(view.line(function.a))
+            result = re.findall(functions_regex, line)
+            if fuzzy_match(prefix, result[0][1])[0]:
+                return_value = result[0][0] if result[0][0] else 'void'
+                completion = '{}({})'.format(
+                    result[0][1],
+                    ', '.join('${{{}:{} {}}}'.format(
+                        idx, type_vars[0], type_vars[1]) for idx, type_vars in enumerate(result[1:], 1))
+                )
+                completions.append(
                     sublime.CompletionItem(
                         trigger = result[0][1],
                         annotation = '(' + return_value + ') function',
                         completion = completion,
                         completion_format = sublime.COMPLETION_FORMAT_SNIPPET,
                         kind = (sublime.KIND_ID_COLOR_PINKISH, 'f', 'function'),
-                        details = 'user defined function'
-                    ))
-            elif 'meta.state' in scope:
-                break
-            elif 'meta.function.body' in scope:
-                continue
-            else:
-                result = re.findall(regex, line)
-                for type_vars in result:
-                    if fuzzy_match(prefix, type_vars[1])[0]:
-                        completions.append(
-                        sublime.CompletionItem(
-                            trigger = type_vars[1],
-                            annotation = 'global ' + type_vars[0] + ' variable',
-                            completion = type_vars[1],
-                            completion_format = sublime.COMPLETION_FORMAT_TEXT,
-                            kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                            details = 'global ' + type_vars[0]
-                        ))
+                        details = 'user defined function')
+                )
+
  
-        # Find local and event/user-function parameter variables.
-        # TODO: Discard variables that are not within scope.
+        # Find local and event/userfunction parameter variables.
+        #
+        # Get a list of regions that match the current location's scope.
         region, regions = [], []
         if view.match_selector(loc, 'meta.event.body'):
             region = view.expand_to_scope(loc, 'meta.event.body.lsl')
@@ -224,19 +236,61 @@ class LSLCompletions(sublime_plugin.EventListener):
             region = view.expand_to_scope(loc, 'meta.function.body.lsl')
             regions = view.find_by_selector('meta.function.lsl')
 
+
+        # Find the start of the region we are interested in.
+        reg = sublime.Region(0, 0)
         for reg in regions:
-            if region.a == reg.b:
+            if reg.b == region.a:
                 break
 
-        point = reg.a
+        # If current location is not in the 'body' of an event or userfunction,
+        # we get an empty region and would scan the whole file up till the
+        # current location. Instead we set the region to the current line and
+        # still capture all the variables we're interested in.
+        if reg.empty():
+            reg = view.line(loc)
+
+        # Make a list of blocks that are out of scope.
+        blocks = []
+        block = sublime.Region(0, 0)
+        nesting = 0
+        pos = loc
+        while pos > reg.a:
+            pos -= 1
+            if view.substr(pos) == '}' and view.match_selector(pos, 'punctuation'):
+                if nesting == 0:
+                    block.b = pos
+                nesting -= 1
+            elif view.substr(pos) == '{' and view.match_selector(pos, 'punctuation'):
+                if block.b == 0:
+                    continue
+                if nesting == -1:
+                    block.a = pos
+                    blocks.append(block)
+                    block = sublime.Region(0, 0)
+                nesting += 1
+
+        # Find variables and check if they are within scope.
         regions = []
-        while point < loc:
-            reg = view.find(regex, point)
-            if reg.a > loc:
+        pos = reg.a
+        while pos < loc:
+            reg = view.find(regex, pos)
+            if reg.a > loc or reg.a == -1:
                 break
-            if not view.match_selector(reg.a, 'comment'):
+            # Skip variables in comments and userfunction declarations.
+            elif (view.match_selector(reg.a, 'comment')
+                or view.match_selector(reg.a, 'meta.function.lsl - meta.function.parameters')
+            ):
+                pos = reg.b
+                continue
+            in_scope = True
+            for block in blocks:
+                if block.contains(reg):
+                    in_scope = False
+                    break
+            if in_scope:
                 regions.append(reg)
-            point = reg.b
+            pos = reg.b
 
         for reg in regions:
             if (view.match_selector(reg.a, 'meta.event.parameters')
@@ -247,14 +301,14 @@ class LSLCompletions(sublime_plugin.EventListener):
             type_vars = view.substr(reg).split()
             if fuzzy_match(prefix, type_vars[1])[0]:
                 completions.append(
-                sublime.CompletionItem(
-                    trigger = type_vars[1],
-                    annotation = type_vars[0] + annotation_type,
-                    completion = type_vars[1],
-                    completion_format = sublime.COMPLETION_FORMAT_TEXT,
-                    kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                    details = type_vars[0]
-                ))
+                    sublime.CompletionItem(
+                        trigger = type_vars[1],
+                        annotation = type_vars[0] + annotation_type,
+                        completion = type_vars[1],
+                        completion_format = sublime.COMPLETION_FORMAT_TEXT,
+                        kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
+                        details = type_vars[0])
+                )
 
     def on_query_completions(self, view, prefix, locations):
         # Only suggest completions based on the first cursor.
