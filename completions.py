@@ -366,6 +366,13 @@ class LSLCompletions(sublime_plugin.EventListener):
                     and result.get('scope') == 'constant'
                 ):
                     continue
+                # Function-call arguments.
+                if view.match_selector(loc, 'meta.function-call'): # TODO: Update syntax so we can use 'meta.function-call.arguments'.
+                    if result.get('scope') == 'keyword':
+                        continue
+                    # Can't use functions that return nothing.
+                    if not result.get('type'):
+                        continue
                 # Remove 'll' when needed, to stop it counting against the fuzzy match score.
                 shortened_word = word
                 if word.startswith('ll') and not prefix.startswith('ll'):
