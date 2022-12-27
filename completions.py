@@ -367,7 +367,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                 ):
                     continue
                 # Function-call arguments.
-                if view.match_selector(loc, 'meta.function-call'): # TODO: Update syntax so we can use 'meta.function-call.arguments'.
+                if view.match_selector(loc, 'meta.function-call.arguments'):
                     if result.get('scope') == 'keyword':
                         continue
                     # Can't use functions that return nothing.
