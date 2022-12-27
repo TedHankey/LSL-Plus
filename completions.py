@@ -224,7 +224,6 @@ class LSLCompletions(sublime_plugin.EventListener):
                         details = 'user defined function')
                 )
 
- 
         # Find local and event/userfunction parameter variables.
         #
         # Get a list of regions that match the current location's scope.
@@ -235,7 +234,6 @@ class LSLCompletions(sublime_plugin.EventListener):
         elif view.match_selector(loc, 'meta.function.body'):
             region = view.expand_to_scope(loc, 'meta.function.body.lsl')
             regions = view.find_by_selector('meta.function.lsl')
-
 
         # Find the start of the region we are interested in.
         reg = sublime.Region(0, 0)
@@ -340,13 +338,13 @@ class LSLCompletions(sublime_plugin.EventListener):
                 ):
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
-                        completions.append((item))
+                        completions.append(item)
             # Within a state but outside of an event.
             elif view.match_selector(loc, 'meta.state - meta.event'):
                 if result.get('scope') == 'event':
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
-                        completions.append((item))
+                        completions.append(item)
             # Event and userfunction parameters.
             elif (view.match_selector(loc, 'meta.event.parameters')
                 or view.match_selector(loc, 'meta.function.parameters')
@@ -355,7 +353,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                 if result.get('scope') == 'storage.type':
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
-                        completions.append((item))
+                        completions.append(item)
             # Inside an event or userfunction.
             elif view.match_selector(loc, 'meta.event') or view.match_selector(loc, 'meta.function'):
                 # Can't have state or event declaration inside of an event or userfunction.
@@ -379,7 +377,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                     shortened_word = word[2:]
                 if fuzzy_match(prefix, shortened_word)[0]:
                     item = self.format_result(word, result)
-                    completions.append((item))
+                    completions.append(item)
                     if not looking_for_vars:
                         looking_for_vars = True
                         self.find_variables(view, prefix, loc)
