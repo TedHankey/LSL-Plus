@@ -3,7 +3,6 @@
 name: LSL
 scope: source.lsl
 comment: 'Linden Scripting Language of Second Life'
-hidden: false
 file_extensions: lsl
 first_line_match: (?:\b(?:default)\b(?:\s*\{)?)
 
