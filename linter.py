@@ -25,10 +25,6 @@ class Lslint(Linter):
     '''
     tempfile_suffix = 'lsl'
 
-    # The word_re argument is a regex that determines the highlighting of a problem.
-    # Defaults to '^([-\w]+)', i.e. highlight the word.
-    word_re = None
-
     def cmd(self):
         path = os.path.dirname(shutil.which("lslint"))
         builtins_txt = os.path.join(path, 'builtins.txt')
