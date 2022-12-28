@@ -96,10 +96,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                     '\n{\n\t$0\n}'
                 )
             else:
-                completion = '{}(){}'.format(
-                    word,
-                    '\n{\n\t$0\n}'
-                )
+                completion = '{}(){}'.format(word, '\n{\n\t$0\n}')
             annotation = 'event'
             kind_id = sublime.KIND_ID_NAMESPACE
             kind_symbol = 'e'
@@ -179,11 +176,11 @@ class LSLCompletions(sublime_plugin.EventListener):
             reg = view.find(regex, pos)
             if reg.a > loc or reg.a == -1:
                 break
-            elif view.match_selector(reg.a, 'meta.state'):
+            if view.match_selector(reg.a, 'meta.state'):
                 break
-            elif view.match_selector(reg.a, 'meta.function'):
+            if view.match_selector(reg.a, 'meta.function'):
                 continue
-            elif view.match_selector(reg.a, 'comment'):
+            if view.match_selector(reg.a, 'comment'):
                 continue
             regions.append(reg)
 
@@ -276,7 +273,7 @@ class LSLCompletions(sublime_plugin.EventListener):
             if reg.a > loc or reg.a == -1:
                 break
             # Skip variables in comments and userfunction declarations.
-            elif (view.match_selector(reg.a, 'comment')
+            if (view.match_selector(reg.a, 'comment')
                 or view.match_selector(reg.a, 'meta.function.lsl - meta.function.parameters')
             ):
                 pos = reg.b
@@ -359,7 +356,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                 # Can't have state or event declaration inside of an event or userfunction.
                 if result.get('scope') == 'event' or result.get('scope') == 'keyword.declaration.state':
                     continue
-                # Don't suggest constants outside of function parameters
+                # Don't suggest constants outside of function parameters.
                 if (not view.match_selector(loc, 'meta.function-call')
                     and result.get('scope') == 'constant'
                 ):
