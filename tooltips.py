@@ -55,12 +55,14 @@ class LslTooltips(sublime_plugin.EventListener):
             desc_with_links = ''
             words = description.split()
             for desc_word in words:
-                desc_word_nopunct = desc_word.translate(str.maketrans('', '', '.,'))
+                desc_word_nopunct = desc_word.translate(str.maketrans('', '', '.,()'))
                 link = KEYWORD_DATA.get(desc_word_nopunct)
                 if link is not None and (link.get('scope') == 'function' or link.get('scope') == 'constant'):
+                    if desc_word[0] in ['(']:
+                        desc_with_links += '('
                     desc_with_links += ('<a href="' + SL_WIKI_URL + desc_word_nopunct
                         + '">' + desc_word_nopunct + '</a>')
-                    if desc_word[-1] in ['.', ',']:
+                    if desc_word[-1] in ['.', ',', ')']:
                         desc_with_links += desc_word[-1]
                 else:
                     desc_with_links += desc_word
