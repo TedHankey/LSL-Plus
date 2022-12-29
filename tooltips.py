@@ -69,7 +69,7 @@ class LslTooltips(sublime_plugin.EventListener):
                 desc_with_links += ' '
             tooltip_lines.append('<pre>{}</pre><br><br>'.format(desc_with_links))
         if 'status' in result:
-            tooltip_lines.append('Status: {}'.format(result['status']))
+            tooltip_lines.append('<b>Status: {}</b>'.format(result['status']))
 
         tooltip_text = ' '.join(tooltip_lines)
         view.show_popup(tooltip_text,
