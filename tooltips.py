@@ -14,8 +14,6 @@ class LslTooltips(sublime_plugin.EventListener):
     def on_hover(self, view, point, hover_zone):
         if hover_zone is not sublime.HOVER_TEXT:
             return
-        if view.settings().get('is_widget'):
-            return
         if not view.score_selector(point, 'source.lsl'):
             return
         if view.settings().get('show_definitions'):
