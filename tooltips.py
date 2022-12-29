@@ -32,20 +32,19 @@ class LslTooltips(sublime_plugin.EventListener):
         if result is None:
             return
 
-        if 'type' in result or word.startswith('ll'):
-            return_value = '({}) '.format(result.get('type', 'void'))
-            params = '()'
+        scope = result.get('scope')
+        if scope == 'function' or scope == 'event' or scope == 'constant':
+            type = '({}) '.format(result.get('type', 'void')) if scope != 'event' else ''
+            params = '()' if scope != 'constant' else ''
             if 'params' in result:
                 params = '({})'.format(
                     ', '.join('{} <u>{}</u>'.format(
                         param['type'], param['name']) for param in result['params'])
                 )
-            elif not word.startswith('ll'):
-                params = ''
-            has_value = ' = {}'.format(result['value']) if 'value' in result else ''
-            has_value = has_value.replace('<' , '&lt;').replace('>', '&gt;')
+            value = ' = {}'.format(result['value']) if 'value' in result else ''
+            value = value.replace('<' , '&lt;').replace('>', '&gt;')
             tooltip_lines.append('<p>{}<a href="{}{}">{}</a>{}{}</p>'.format(
-                return_value, SL_WIKI_URL, word, word, params, has_value)
+                type, SL_WIKI_URL, word, word, params, value)
             )
         else:
             tooltip_lines.append('<p><a href="{}{}">{}</a></p>'.format(SL_WIKI_URL, word, word))
