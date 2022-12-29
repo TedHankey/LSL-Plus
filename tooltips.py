@@ -71,9 +71,9 @@ class LslTooltips(sublime_plugin.EventListener):
         if 'status' in result:
             tooltip_lines.append('Status: {}'.format(result['status']))
         if 'delay' in result:
-            tooltip_lines.append('Delay: {}<br>'.format(str(result['delay'])))
+            tooltip_lines.append('Delay: {}<br>'.format(result['delay']))
         if 'energy' in result:
-            tooltip_lines.append('Energy: {}'.format(str(result['energy'])))
+            tooltip_lines.append('Energy: {}'.format(result['energy']))
 
         tooltip_text = ' '.join(tooltip_lines)
         view.show_popup(tooltip_text,
