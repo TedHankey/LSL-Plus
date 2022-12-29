@@ -42,7 +42,7 @@ class LslTooltips(sublime_plugin.EventListener):
                 )
             elif not word.startswith('ll'):
                 params = ''
-            has_value = ' = {}'.format(str(result['value'])) if 'value' in result else ''
+            has_value = ' = {}'.format(result['value']) if 'value' in result else ''
             has_value = has_value.replace('<' , '&lt;').replace('>', '&gt;')
             tooltip_lines.append('<p>{}<a href="{}{}">{}</a>{}{}</p>'.format(
                 return_value, SL_WIKI_URL, word, word, params, has_value)
