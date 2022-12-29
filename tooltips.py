@@ -20,7 +20,7 @@ class LslTooltips(sublime_plugin.EventListener):
             return
 
         word = view.substr(view.word(point))
-        if not word:
+        if not word.isalpha() and not '_' in word:
             return
 
         from .load_kwdb import KEYWORD_DATA
