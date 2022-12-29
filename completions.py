@@ -130,13 +130,9 @@ def fuzzy_match(pattern, instring, adj_bonus=5, sep_bonus=10, camel_bonus=10,
 class LSLCompletions(sublime_plugin.EventListener):
     
     def format_result(self, word, result):
-        annotation = ''
-        completion = ''
-        kind_id = sublime.KIND_ID_FUNCTION
-        kind_symbol = 'x'
-        kind_desc = 'function'
-
-        if result.get('scope') == 'event':
+        completion = word
+        scope = result.get('scope')
+        if scope == 'event':
             if 'params' in result:
                 completion = '{}({}){}'.format(
                     word,
@@ -149,7 +145,7 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_id = sublime.KIND_ID_NAMESPACE
             kind_symbol = 'e'
             kind_desc = 'event'
-        elif result.get('scope') == 'function':
+        elif scope == 'function':
             if 'params' in result:
                 completion = '{}({})'.format(
                     word,
@@ -164,28 +160,24 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_id = sublime.KIND_ID_FUNCTION
             kind_symbol = 'f'
             kind_desc = 'function'
-        elif result['scope'].startswith('constant'):
-            completion = word
+        elif scope.startswith('constant'):
             annotation = result['type'] + ' constant' 
             kind_id = sublime.KIND_ID_MARKUP
             kind_symbol = 'c'
             kind_desc = 'constant'
-        elif result.get('scope') == 'storage.type':
-            completion = word
+        elif scope == 'storage.type':
             annotation = 'storage type' 
             kind_id = sublime.KIND_ID_TYPE
             kind_symbol = 't'
             kind_desc = 'type'
-        elif result.get('scope') == 'keyword.declaration.state':
-            completion = word
+        elif scope == 'keyword.declaration.state':
             if word == 'default':
                 completion = 'default\n{\n\t$0\n}'
             annotation = 'state' 
             kind_id = sublime.KIND_ID_NAVIGATION
             kind_symbol = 's'
             kind_desc = 'state'
-        elif result['scope'].startswith('keyword.control'):
-            completion = word
+        elif scope.startswith('keyword.control'):
             if word == 'if':
                 completion = 'if (${1:condition})$0'
             elif word == 'for':
