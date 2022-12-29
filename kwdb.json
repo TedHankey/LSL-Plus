@@ -5192,7 +5192,6 @@
         "scope": "function"
     },
     "llDie": {
-        "energy": 0,
         "description": "Deletes the object.",
         "scope": "function"
     },
@@ -5321,7 +5320,6 @@
         "scope": "function"
     },
     "llSetTexture": {
-        "delay": 0.2,
         "description": "Sets the texture of face or ALL_SIDES.",
         "params": [
             {
@@ -5336,7 +5334,6 @@
         "scope": "function"
     },
     "llScaleTexture": {
-        "delay": 0.2,
         "description": "Sets the texture u & v scales for the chosen face or ALL_SIDES.",
         "params": [
             {
@@ -5355,7 +5352,6 @@
         "scope": "function"
     },
     "llOffsetTexture": {
-        "delay": 0.2,
         "description": "Sets the texture u  & v offsets for the chosen face or ALL_SIDES.",
         "params": [
             {
@@ -5374,7 +5370,6 @@
         "scope": "function"
     },
     "llRotateTexture": {
-        "delay": 0.2,
         "description": "Sets the texture rotation for the chosen face.",
         "params": [
             {
@@ -5400,7 +5395,6 @@
         "scope": "function"
     },
     "llSetPos": {
-        "delay": 0.2,
         "description": "Moves the object or prim towards pos without using physics (if the script isn't physical).",
         "params": [
             {
@@ -5421,7 +5415,6 @@
         "scope": "function"
     },
     "llSetRot": {
-        "delay": 0.2,
         "description": "Sets the rotation.",
         "params": [
             {
@@ -5744,7 +5737,6 @@
         "scope": "function"
     },
     "llPreloadSound": {
-        "delay": 1,
         "description": "Preloads a sound on viewers within range.",
         "params": [
             {
@@ -5850,7 +5842,6 @@
     },
     "llMakeExplosion": {
         "status": "deprecated",
-        "delay": 0.1,
         "description": "DEPRECATED. Makes a round explosion of particles.",
         "params": [
             {
@@ -5886,7 +5877,6 @@
     },
     "llMakeFountain": {
         "status": "deprecated",
-        "delay": 0.1,
         "description": "DEPRECATED. Makes a fountain of particles.",
         "params": [
             {
@@ -5930,7 +5920,6 @@
     },
     "llMakeSmoke": {
         "status": "deprecated",
-        "delay": 0.1,
         "description": "DEPRECATED. Makes smoke like particles.",
         "params": [
             {
@@ -5966,7 +5955,6 @@
     },
     "llMakeFire": {
         "status": "deprecated",
-        "delay": 0.1,
         "description": "DEPRECATED. Makes fire like particles.",
         "params": [
             {
@@ -6001,8 +5989,6 @@
         "scope": "function"
     },
     "llRezObject": {
-        "energy": 200,
-        "delay": 0.1,
         "description": "Instantiates owner's inventory object at pos with velocity vel and rotation rot with start parameter param.",
         "params": [
             {
@@ -6061,7 +6047,6 @@
         "scope": "function"
     },
     "llSleep": {
-        "energy": 0,
         "description": "Puts the script to sleep for sec seconds.",
         "params": [
             {
@@ -6158,7 +6143,6 @@
         "scope": "function"
     },
     "llInstantMessage": {
-        "delay": 2,
         "description": "Sends the specified string as an Instant Message to the user.",
         "params": [
             {
@@ -6173,7 +6157,6 @@
         "scope": "function"
     },
     "llEmail": {
-        "delay": 20,
         "description": "Sends an email to address with the subject and message.",
         "params": [
             {
@@ -6414,7 +6397,6 @@
         "scope": "function"
     },
     "llCreateLink": {
-        "delay": 1,
         "description": "Attempts to link the script's object with the target (requires that PERMISSION_CHANGE_LINKS be granted). If parent == TRUE, then the script's object becomes the root.",
         "params": [
             {
@@ -6574,7 +6556,6 @@
     },
     "llRequestAgentData": {
         "type": "key",
-        "delay": 0.1,
         "description": "Requests data about agent id. When data is available the dataserver event will be raised.",
         "params": [
             {
@@ -6590,7 +6571,6 @@
     },
     "llRequestInventoryData": {
         "type": "key",
-        "delay": 1,
         "description": "Requests data from object's inventory object. When data is available the dataserver event will be raised.",
         "params": [
             {
@@ -6611,8 +6591,6 @@
         "scope": "function"
     },
     "llTeleportAgentHome": {
-        "energy": 100,
-        "delay": 5,
         "description": "Teleports avatar on the owner's land to their home location without any warning.",
         "params": [
             {
@@ -7223,7 +7201,6 @@
         "scope": "function"
     },
     "llAdjustSoundVolume": {
-        "delay": 0.1,
         "description": "Adjusts volume of attached sound (0.0 - 1.0)",
         "params": [
             {
@@ -7373,7 +7350,6 @@
     },
     "llGetNotecardLine": {
         "type": "key",
-        "delay": 0.1,
         "description": "Returns line line of notecard name via the dataserver event.",
         "params": [
             {
@@ -7506,7 +7482,6 @@
         "scope": "function"
     },
     "llGiveInventoryList": {
-        "delay": 3,
         "description": "Gives inventory items to target, creating a new folder to put them in.",
         "params": [
             {
@@ -7616,7 +7591,6 @@
         "scope": "function"
     },
     "llAddToLandPassList": {
-        "delay": 0.1,
         "description": "Adds avatar to the land pass list for hours or indefinitely if hours is 0.",
         "params": [
             {
@@ -7697,7 +7671,6 @@
         "scope": "function"
     },
     "llDialog": {
-        "delay": 1,
         "description": "Shows a dialog box on the avatar's screen with a message and up to 12 buttons.\nIf a button is pressed, the avatar says the text of the button label on chat_channel.",
         "params": [
             {
@@ -7752,7 +7725,6 @@
     },
     "llRemoteLoadScript": {
         "status": "unimplemented",
-        "delay": 3,
         "description": "DEPRECATED. Use llRemoteLoadScriptPin instead.",
         "params": [
             {
@@ -7775,7 +7747,6 @@
         "scope": "function"
     },
     "llSetRemoteScriptAccessPin": {
-        "delay": 0.2,
         "description": "If pin is set to a non-zero number, allows a prim to have scripts remotely loaded via llRemoteLoadScriptPin when it passes in the correct pin. Otherwise, llRemoteLoadScriptPin is ignored.",
         "params": [
             {
@@ -7786,7 +7757,6 @@
         "scope": "function"
     },
     "llRemoteLoadScriptPin": {
-        "delay": 3,
         "description": "Copies script name onto target, if the owner of this scripted object can modify target and is in the same region and the matching pin is used.\nIf running == TRUE, starts the script with start_param.",
         "params": [
             {
@@ -7813,13 +7783,11 @@
         "scope": "function"
     },
     "llOpenRemoteDataChannel": {
-        "delay": 1,
         "description": "Creates a channel to listen for XML-RPC calls and will trigger a remote_data event with channel id once it is available.",
         "scope": "function"
     },
     "llSendRemoteData": {
         "type": "key",
-        "delay": 3,
         "description": "Sends an XML-RPC request to dest through channel with payload of channel (in a string), integer idata and string sdata.\nReturns a key that is the message_id for the resulting remote_data events.",
         "params": [
             {
@@ -7842,7 +7810,6 @@
         "scope": "function"
     },
     "llRemoteDataReply": {
-        "delay": 3,
         "description": "Sends an XML-RPC reply to message_id on channel with payload of string sdata and integer idata.",
         "params": [
             {
@@ -7865,7 +7832,6 @@
         "scope": "function"
     },
     "llCloseRemoteDataChannel": {
-        "delay": 1,
         "description": "Closes XML-RPC channel.",
         "params": [
             {
@@ -7891,7 +7857,6 @@
         "scope": "function"
     },
     "llSetPrimitiveParams": {
-        "delay": 0.2,
         "description": "Sets the prim's parameters according to rules.",
         "params": [
             {
@@ -7926,7 +7891,6 @@
     "llXorBase64Strings": {
         "status": "deprecated",
         "type": "string",
-        "delay": 0.3,
         "description": "DEPRECATED. Use llXorBase64 instead.\nIncorrectly performs an exclusive or on two Base64 strings and returns a Base64 string. str2 repeats if it is shorter than str1. Retained for backwards compatability.",
         "params": [
             {
@@ -7979,7 +7943,6 @@
         "scope": "function"
     },
     "llSetParcelMusicURL": {
-        "delay": 2,
         "description": "Sets the streaming audio URL for the parcel which the object is on.",
         "params": [
             {
@@ -8049,7 +8012,6 @@
     },
     "llGetNumberOfNotecardLines": {
         "type": "key",
-        "delay": 0.1,
         "description": "Returns number of lines in notecard name via the dataserver event (cast return value to integer).",
         "params": [
             {
@@ -8077,7 +8039,6 @@
     },
     "llGetPrimitiveParams": {
         "type": "list",
-        "delay": 0.2,
         "description": "Returns the primitive parameters specified in the params list.",
         "params": [
             {
@@ -8116,12 +8077,10 @@
     },
     "llGetSimulatorHostname": {
         "type": "string",
-        "delay": 10,
         "description": "Returns the hostname of the machine which the script is running on (same as string in viewer Help dialog).",
         "scope": "function"
     },
     "llSetLocalRot": {
-        "delay": 0.2,
         "description": "Sets the rotation of a child prim relative to the root prim.",
         "params": [
             {
@@ -8151,8 +8110,6 @@
         "scope": "function"
     },
     "llRezAtRoot": {
-        "energy": 200,
-        "delay": 0.1,
         "description": "Instantiates owner's inventory object rotated to rot with its root at pos, moving at vel, using param as the start parameter.",
         "params": [
             {
@@ -8261,7 +8218,6 @@
     },
     "llRequestSimulatorData": {
         "type": "key",
-        "delay": 1,
         "description": "Requests data about simulator.\nWhen data is available the dataserver event will be raised.",
         "params": [
             {
@@ -8320,7 +8276,6 @@
         "scope": "function"
     },
     "llLoadURL": {
-        "delay": 0.1,
         "description": "Shows a dialog to avatar offering to load the web page at url with a message.\nIf user clicks yes, launches the page in their web browser.",
         "params": [
             {
@@ -8339,7 +8294,6 @@
         "scope": "function"
     },
     "llParcelMediaCommandList": {
-        "delay": 2,
         "description": "Sends a list of commands, some with arguments, to a parcel to control the playback of movies and other media.",
         "params": [
             {
@@ -8351,7 +8305,6 @@
     },
     "llParcelMediaQuery": {
         "type": "list",
-        "delay": 2,
         "description": "Returns a list containing results of the sent query.",
         "params": [
             {
@@ -8363,7 +8316,6 @@
     },
     "llModPow": {
         "type": "integer",
-        "delay": 1,
         "description": "Returns a raised to the b power, mod c. ( (a**b)%c )\nb is capped at 0xFFFF (16 bits).",
         "params": [
             {
@@ -8418,7 +8370,6 @@
     },
     "llSetPrimURL": {
         "status": "unimplemented",
-        "delay": 20,
         "description": "Updates the URL for the web page shown on the sides of the object.",
         "params": [
             {
@@ -8430,7 +8381,6 @@
     },
     "llRefreshPrimURL": {
         "status": "unimplemented",
-        "delay": 20,
         "description": "Reloads the web page shown on the sides of the object.",
         "scope": "function"
     },
@@ -8457,7 +8407,6 @@
         "scope": "function"
     },
     "llMapDestination": {
-        "delay": 1,
         "description": "Opens the World Map centered on the region simname with pos highlighted. (NOTE: look_at currently does nothing).\nOnly works for scripts attached to avatar or during touch events.",
         "params": [
             {
@@ -8476,7 +8425,6 @@
         "scope": "function"
     },
     "llAddToLandBanList": {
-        "delay": 0.1,
         "description": "Adds avatar to the land ban list for hours or indefinitely if hours is 0.",
         "params": [
             {
@@ -8491,7 +8439,6 @@
         "scope": "function"
     },
     "llRemoveFromLandPassList": {
-        "delay": 0.1,
         "description": "Removes avatar from the land pass list.",
         "params": [
             {
@@ -8502,7 +8449,6 @@
         "scope": "function"
     },
     "llRemoveFromLandBanList": {
-        "delay": 0.1,
         "description": "Removes avatar from the land ban list.",
         "params": [
             {
@@ -8598,12 +8544,10 @@
         "scope": "function"
     },
     "llResetLandBanList": {
-        "delay": 0.1,
         "description": "Removes all Residents from the land ban list.",
         "scope": "function"
     },
     "llResetLandPassList": {
-        "delay": 0.1,
         "description": "Removes all Residents from the land access/pass list.",
         "scope": "function"
     },
@@ -8620,7 +8564,6 @@
     },
     "llGetParcelPrimOwners": {
         "type": "list",
-        "delay": 2.0,
         "description": "Returns a list of all Residents who own objects on the parcel at pos and with individual prim counts.\nRequires owner-like permissions for the parcel.",
         "params": [
             {
@@ -8680,7 +8623,6 @@
         "scope": "function"
     },
     "llSetLinkPrimitiveParams": {
-        "delay": 0.2,
         "description": "Sets primitive parameters for linknumber based on rules.",
         "params": [
             {
@@ -8695,7 +8637,6 @@
         "scope": "function"
     },
     "llSetLinkTexture": {
-        "delay": 0.2,
         "description": "Sets the texture of face for a task that exists in the link chain at linknumber.",
         "params": [
             {
@@ -8773,7 +8714,6 @@
         "scope": "function"
     },
     "llTextBox": {
-        "delay": 1,
         "description": "Shows a window on the avatar's screen with the message.\nIt contains a text box for input and if entered that text is chatted on chat_channel.",
         "params": [
             {
@@ -8939,7 +8879,6 @@
     },
     "llSetPrimMediaParams": {
         "type": "integer",
-        "delay": 1.0,
         "description": "Sets the media params for a particular face on an object. If media is not already on this object, add it.\nList is a set of name/value pairs in no particular order. Params not specified are unchanged or if new media is added then set to the default specified.",
         "params": [
             {
@@ -8955,7 +8894,6 @@
     },
     "llGetPrimMediaParams": {
         "type": "list",
-        "delay": 1.0,
         "description": "Returns the media params for a particular face on an object, given the desired list of names, in the order requested.\nReturns an empty list if no media exists on the face.",
         "params": [
             {
@@ -8971,7 +8909,6 @@
     },
     "llClearPrimMedia": {
         "type": "integer",
-        "delay": 1.0,
         "description": "Clears (deletes) the media and all params from the given face.",
         "params": [
             {
@@ -9430,7 +9367,6 @@
     },
     "llSetRegionPos": {
         "type": "integer",
-        "energy": 0,
         "description": "Sets the position anywhere within the region (if the object isn't physical).",
         "params": [
             {
@@ -9442,7 +9378,6 @@
     },
     "llGetAgentList": {
         "type": "list",
-        "energy": 0,
         "description": "Requests a list of agents currently in the region, limited by the scope parameter.",
         "params": [
             {
@@ -9457,7 +9392,6 @@
         "scope": "function"
     },
     "llAttachToAvatarTemp": {
-        "energy": 0,
         "description": "Attaches the object to the avatar who has granted permission to the script, with the exception that the object will not create new inventory for the user and will disappear on detach or disconnect.",
         "params": [
             {
@@ -9468,7 +9402,6 @@
         "scope": "function"
     },
     "llTeleportAgent": {
-        "energy": 0,
         "description": "Requests a teleport of avatar to a landmark stored in the object's inventory.\nIf no landmark is provided (an empty string), the avatar is teleported to the location position in the current region. In either case, the avatar is turned to face the position given by look_at in local coordinates.",
         "params": [
             {
@@ -9491,7 +9424,6 @@
         "scope": "function"
     },
     "llTeleportAgentGlobalCoords": {
-        "energy": 0,
         "description": "Teleports an agent to set of a region_coordinates within a region at the specified global_coordinates.\nThe agent lands facing the position defined by look_at local coordinates.\nA region's global coordinates can be retrieved using llRequestSimulatorData(region_name, DATA_SIM_POS).",
         "params": [
             {
@@ -9515,12 +9447,10 @@
     },
     "llGenerateKey": {
         "type": "key",
-        "energy": 0,
         "description": "Return a unique generated key.",
         "scope": "function"
     },
     "llNavigateTo": {
-        "energy": 0,
         "description": "For AI Character: Navigate to destination.",
         "params": [
             {
@@ -9535,7 +9465,6 @@
         "scope": "function"
     },
     "llCreateCharacter": {
-        "energy": 0,
         "description": "Convert linkset to AI Character which can navigate the world.",
         "params": [
             {
@@ -9546,7 +9475,6 @@
         "scope": "function"
     },
     "llPursue": {
-        "energy": 0,
         "description": "For AI Character: Chase after a target.",
         "params": [
             {
@@ -9561,7 +9489,6 @@
         "scope": "function"
     },
     "llWanderWithin": {
-        "energy": 0,
         "description": "For AI Character: Wander within a specified volume.",
         "params": [
             {
@@ -9580,7 +9507,6 @@
         "scope": "function"
     },
     "llFleeFrom": {
-        "energy": 0,
         "description": "For AI Character: Flee from a point.",
         "params": [
             {
@@ -9599,7 +9525,6 @@
         "scope": "function"
     },
     "llPatrolPoints": {
-        "energy": 0,
         "description": "For AI Character: Patrol a list of points.",
         "params": [
             {
@@ -9614,7 +9539,6 @@
         "scope": "function"
     },
     "llExecCharacterCmd": {
-        "energy": 0,
         "description": "For AI Character: Execute a character command.",
         "params": [
             {
@@ -9629,12 +9553,10 @@
         "scope": "function"
     },
     "llDeleteCharacter": {
-        "energy": 0,
         "description": "Convert linkset from AI Character to Physics object.",
         "scope": "function"
     },
     "llUpdateCharacter": {
-        "energy": 0,
         "description": "Change the AI Character's settings.",
         "params": [
             {
@@ -9645,7 +9567,6 @@
         "scope": "function"
     },
     "llEvade": {
-        "energy": 0,
         "description": "For AI Character: Evade a specified target.",
         "params": [
             {
@@ -9661,7 +9582,6 @@
     },
     "llGetClosestNavPoint": {
         "type": "list",
-        "energy": 0,
         "description": "For AI Character: Get the closest navigable point to the point provided.",
         "params": [
             {
@@ -9677,7 +9597,6 @@
     },
     "llGetStaticPath": {
         "type": "list",
-        "energy": 0,
         "description": "Returns a list of position vectors indicating pathfinding waypoints between positions at start and end, for a character of a given radius.",
         "params": [
             {
@@ -9701,7 +9620,6 @@
     },
     "llGetSimStats": {
         "type": "float",
-        "energy": 0,
         "description": "Returns the value of a particular simulator statistic.",
         "params": [
             {
@@ -10223,7 +10141,6 @@
     },
     "llTargetedEmail": {
         "description": "Sends an email to the owner (selected by target) of an object with subject and message.",
-        "delay": 20,
         "params": [
             {
                 "name": "target",
