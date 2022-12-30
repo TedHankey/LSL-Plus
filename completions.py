@@ -264,26 +264,26 @@ class LSLCompletions(sublime_plugin.EventListener):
         # Find local and event/userfunction parameter variables.
         #
         # Get a list of regions that match the current location's scope.
-        region, regions = [], []
+        region = []
         if view.match_selector(loc, 'meta.event.body'):
             region = view.expand_to_scope(loc, 'meta.event.body.lsl')
             regions = view.find_by_selector('meta.event.lsl')
         elif view.match_selector(loc, 'meta.function.body'):
             region = view.expand_to_scope(loc, 'meta.function.body.lsl')
             regions = view.find_by_selector('meta.function.lsl')
+        else:
+            # Current location is not in the 'body' of an event or userfunction.
+            # Set the region to the current line so we still capture all the
+            # variables we're interested in.
+            region = view.line(loc)
+            regions = [region]
+
 
         # Find the start of the region we are interested in.
         reg = sublime.Region(0, 0)
         for reg in regions:
             if reg.b == region.a:
                 break
-
-        # If current location is not in the 'body' of an event or userfunction,
-        # we get an empty region and would scan the whole file up till the
-        # current location. Instead we set the region to the current line and
-        # still capture all the variables we're interested in.
-        if reg.empty():
-            reg = view.line(loc)
 
         # Make a list of blocks that are out of scope.
         blocks = []
@@ -329,10 +329,11 @@ class LSLCompletions(sublime_plugin.EventListener):
 
         for reg in regions:
             if (view.match_selector(reg.a, 'meta.event.parameters')
-                or view.match_selector(reg.a, 'meta.function.parameters')):
+                or view.match_selector(reg.a, 'meta.function.parameters')
+            ):
                 annotation_type = ' parameter'
             else:
-               annotation_type = ' variable'
+                annotation_type = ' variable'
             type_vars = view.substr(reg).split()
             if fuzzy_match(prefix, type_vars[1])[0]:
                 completions.append(
@@ -350,9 +351,6 @@ class LSLCompletions(sublime_plugin.EventListener):
         loc = locations[0]
 
         if not view.match_selector(loc, 'source.lsl'):
-            return None
-
-        if view.match_selector(loc, 'string.quoted.double.lsl'):
             return None
 
         from .load_kwdb import KEYWORD_DATA
