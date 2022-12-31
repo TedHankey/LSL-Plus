@@ -36,10 +36,10 @@ class LSLTooltips(sublime_plugin.EventListener):
         if category == 'function' or category == 'event' or category == 'constant':
             type = '({}) '.format(result.get('type', 'void')) if category != 'event' else ''
             params = '()' if category != 'constant' else ''
-            if 'params' in result:
+            if 'parameters' in result:
                 params = '({})'.format(
                     ', '.join('{} <u>{}</u>'.format(
-                        param['type'], param['name']) for param in result['params'])
+                        param['type'], param['name']) for param in result['parameters'])
                 )
             value = ' = {}'.format(result['value']) if 'value' in result else ''
             value = value.replace('<' , '&lt;').replace('>', '&gt;')

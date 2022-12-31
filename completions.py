@@ -133,10 +133,10 @@ class LSLCompletions(sublime_plugin.EventListener):
         completion = word
         category = result.get('category')
         if category == 'event':
-            if 'params' in result:
+            if 'parameters' in result:
                 completion = '{}({}){}'.format(
                     word,
-                    ', '.join('{} {}'.format(param['type'], param['name']) for param in result['params']),
+                    ', '.join('{} {}'.format(param['type'], param['name']) for param in result['parameters']),
                     '\n{\n\t$0\n}'
                 )
             else:
@@ -146,11 +146,11 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_symbol = 'e'
             kind_desc = 'event'
         elif category == 'function':
-            if 'params' in result:
+            if 'parameters' in result:
                 completion = '{}({})'.format(
                     word,
                     ', '.join('${{{}:{} {}}}'.format(
-                        idx, param['type'], param['name']) for idx, param in enumerate(result['params'], 1))
+                        idx, param['type'], param['name']) for idx, param in enumerate(result['parameters'], 1))
                 )
             else:
                 completion = '{}()'.format(word)
