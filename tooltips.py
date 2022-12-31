@@ -6,7 +6,7 @@ import sublime_plugin
 SL_WIKI_URL = 'https://wiki.secondlife.com/wiki/'
 
 
-class LslTooltips(sublime_plugin.EventListener):
+class LSLTooltips(sublime_plugin.EventListener):
    
     def on_hide(self, view):
         view.hide_popup()
@@ -27,11 +27,11 @@ class LslTooltips(sublime_plugin.EventListener):
         if KEYWORD_DATA is None:
             return
 
-        tooltip_lines = []
         result = KEYWORD_DATA.get(word)
         if result is None:
             return
 
+        tooltip_lines = []
         scope = result.get('scope')
         if scope == 'function' or scope == 'event' or scope == 'constant':
             type = '({}) '.format(result.get('type', 'void')) if scope != 'event' else ''

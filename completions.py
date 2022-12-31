@@ -132,6 +132,7 @@ class LSLCompletions(sublime_plugin.EventListener):
     def format_result(self, word, result):
         completion = word
         scope = result.get('scope')
+        
         if scope == 'event':
             if 'params' in result:
                 completion = '{}({}){}'.format(
@@ -298,7 +299,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                 nesting -= 1
             elif view.substr(pos) == '{' and view.match_selector(pos, 'punctuation'):
                 if block.b == 0:
-                    continue
+                    continue # Do not change nesting.
                 if nesting == -1:
                     block.a = pos
                     blocks.append(block)
@@ -327,13 +328,13 @@ class LSLCompletions(sublime_plugin.EventListener):
                 regions.append(reg)
             pos = reg.b
 
+        # The remaining regions all contain variables local to the current location.
         for reg in regions:
+            annotation_type = ' variable'
             if (view.match_selector(reg.a, 'meta.event.parameters')
                 or view.match_selector(reg.a, 'meta.function.parameters')
             ):
                 annotation_type = ' parameter'
-            else:
-                annotation_type = ' variable'
             type_vars = view.substr(reg).split()
             if fuzzy_match(prefix, type_vars[1])[0]:
                 completions.append(
