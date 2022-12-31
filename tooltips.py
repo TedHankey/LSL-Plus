@@ -32,10 +32,10 @@ class LSLTooltips(sublime_plugin.EventListener):
             return
 
         tooltip_lines = []
-        scope = result.get('scope')
-        if scope == 'function' or scope == 'event' or scope == 'constant':
-            type = '({}) '.format(result.get('type', 'void')) if scope != 'event' else ''
-            params = '()' if scope != 'constant' else ''
+        category = result.get('category')
+        if category == 'function' or category == 'event' or category == 'constant':
+            type = '({}) '.format(result.get('type', 'void')) if category != 'event' else ''
+            params = '()' if category != 'constant' else ''
             if 'params' in result:
                 params = '({})'.format(
                     ', '.join('{} <u>{}</u>'.format(
@@ -56,7 +56,7 @@ class LSLTooltips(sublime_plugin.EventListener):
             for desc_word in words:
                 desc_word_nopunct = desc_word.translate(str.maketrans('', '', '.,()'))
                 link = KEYWORD_DATA.get(desc_word_nopunct)
-                if link is not None and (link.get('scope') == 'function' or link.get('scope') == 'constant'):
+                if link is not None and (link.get('category') == 'function' or link.get('category') == 'constant'):
                     if desc_word[0] in ['(']:
                         desc_with_links += '('
                     desc_with_links += ('<a href="' + SL_WIKI_URL + desc_word_nopunct

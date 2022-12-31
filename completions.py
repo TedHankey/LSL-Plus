@@ -131,9 +131,8 @@ class LSLCompletions(sublime_plugin.EventListener):
     
     def format_result(self, word, result):
         completion = word
-        scope = result.get('scope')
-        
-        if scope == 'event':
+        category = result.get('category')
+        if category == 'event':
             if 'params' in result:
                 completion = '{}({}){}'.format(
                     word,
@@ -146,7 +145,7 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_id = sublime.KIND_ID_NAMESPACE
             kind_symbol = 'e'
             kind_desc = 'event'
-        elif scope == 'function':
+        elif category == 'function':
             if 'params' in result:
                 completion = '{}({})'.format(
                     word,
@@ -161,24 +160,24 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_id = sublime.KIND_ID_FUNCTION
             kind_symbol = 'f'
             kind_desc = 'function'
-        elif scope.startswith('constant'):
+        elif category.startswith('constant'):
             annotation = result['type'] + ' constant' 
             kind_id = sublime.KIND_ID_MARKUP
             kind_symbol = 'c'
             kind_desc = 'constant'
-        elif scope == 'storage.type':
+        elif category == 'storage.type':
             annotation = 'storage type' 
             kind_id = sublime.KIND_ID_TYPE
             kind_symbol = 't'
             kind_desc = 'type'
-        elif scope == 'keyword.declaration.state':
+        elif category == 'keyword.declaration.state':
             if word == 'default':
                 completion = 'default\n{\n\t$0\n}'
             annotation = 'state' 
             kind_id = sublime.KIND_ID_NAVIGATION
             kind_symbol = 's'
             kind_desc = 'state'
-        elif scope.startswith('keyword.control'):
+        elif category.startswith('keyword.control'):
             if word == 'if':
                 completion = 'if (${1:condition})$0'
             elif word == 'for':
@@ -366,18 +365,19 @@ class LSLCompletions(sublime_plugin.EventListener):
             # Don't suggest invalid/deprecated completions.
             if result.get('status'):
                 continue
+            category = result.get('category')
             # Outside of a state.
             if view.match_selector(loc, 'source.lsl - (meta.state, meta.function)'):
-                if (result.get('scope') == 'storage.type'
-                    or result.get('scope') == 'constant'
-                    or result.get('scope') == 'keyword.declaration.state'
+                if (category == 'storage.type'
+                    or category == 'constant'
+                    or category == 'keyword.declaration.state'
                 ):
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
                         completions.append(item)
             # Within a state but outside of an event.
             elif view.match_selector(loc, 'meta.state - meta.event'):
-                if result.get('scope') == 'event':
+                if category == 'event':
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
                         completions.append(item)
@@ -386,18 +386,18 @@ class LSLCompletions(sublime_plugin.EventListener):
                 or view.match_selector(loc, 'meta.function.parameters')
             ):
                 # Event and userfunction parameters only allow storage types.
-                if result.get('scope') == 'storage.type':
+                if category == 'storage.type':
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
                         completions.append(item)
             # Inside an event or userfunction.
             elif view.match_selector(loc, 'meta.event') or view.match_selector(loc, 'meta.function'):
                 # Can't have state or event declaration inside of an event or userfunction.
-                if result.get('scope') == 'event' or result.get('scope') == 'keyword.declaration.state':
+                if category == 'event' or category == 'keyword.declaration.state':
                     continue
                 # Function-call arguments.
                 if view.match_selector(loc, 'meta.function-call.arguments'):
-                    if result.get('scope') == 'keyword':
+                    if category == 'keyword':
                         continue
                     # Can't use functions that return nothing.
                     if not result.get('type'):
