@@ -29,7 +29,7 @@ Open the settings via `Preferences > Package Settings > LSL-Plus > Settings` fro
 **popups**:  
 By default Sublime shows a popup for symbol definitions. To be able to show info popups LSL-Plus turns this off for .lsl files by setting "show_definitions" to false.  You can turn this back on if you like, but info popups will not be shown.
 
-**autocomplete**:
+**autocomplete**:  
 In order to get suggestions inside of snippet fields, both 'auto_complete_commit_on_tab' and 'auto_complete_with_fields' are set to true by default.
 
 **color scheme**:  
