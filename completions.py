@@ -8,6 +8,16 @@ from .fts_fuzzy_match import fuzzy_match
 
 
 class LSLCompletions(sublime_plugin.EventListener):
+
+    def compare_words(self, prefix, word, weight, result):
+        # Remove 'll' when needed, to stop it counting against the fuzzy match score.
+        shortened_word = word
+        if word.startswith('ll') and not prefix.startswith('ll'):
+            shortened_word = word[2:]
+        accept, score = fuzzy_match(prefix, shortened_word, weight=weight)
+        if accept:
+            item = self.format_result(word, result)
+            completions.append((item, score))
     
     def format_result(self, word, result):
         completion = word
@@ -106,16 +116,19 @@ class LSLCompletions(sublime_plugin.EventListener):
 
         for reg in regions:
             type_vars = view.substr(reg).split()
-            if fuzzy_match(prefix, type_vars[1])[0]:
-                completions.append(
+            accept, score = fuzzy_match(prefix, type_vars[1])
+            if accept:
+                completions.append((
                     sublime.CompletionItem(
                         trigger = type_vars[1],
                         annotation = 'global ' + type_vars[0] + ' variable',
                         completion = type_vars[1],
                         completion_format = sublime.COMPLETION_FORMAT_TEXT,
                         kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                        details = 'global ' + type_vars[0])
-                )
+                        details = 'global ' + type_vars[0]
+                    ),
+                    score
+                ))
 
         # Find userfunctions and add the parameters so they can be
         # used in a snippet.
@@ -124,22 +137,25 @@ class LSLCompletions(sublime_plugin.EventListener):
         for function in functions:
             line = view.substr(view.line(function.a))
             result = re.findall(functions_regex, line)
-            if fuzzy_match(prefix, result[0][1])[0]:
+            accept, score = fuzzy_match(prefix, result[0][1])
+            if accept:
                 return_value = result[0][0] if result[0][0] else 'void'
                 completion = '{}({})'.format(
                     result[0][1],
                     ', '.join('${{{}:{} {}}}'.format(
                         idx, type_vars[0], type_vars[1]) for idx, type_vars in enumerate(result[1:], 1))
                 )
-                completions.append(
+                completions.append((
                     sublime.CompletionItem(
                         trigger = result[0][1],
                         annotation = '(' + return_value + ') function',
                         completion = completion,
                         completion_format = sublime.COMPLETION_FORMAT_SNIPPET,
-                        kind = (sublime.KIND_ID_COLOR_PINKISH, 'f', 'function'),
-                        details = 'user defined function')
-                )
+                        kind = (sublime.KIND_ID_COLOR_GREENISH, 'f', 'function'),
+                        details = 'user defined function'
+                    ),
+                    score
+                ))
 
         # Find local and event/userfunction parameter variables.
         #
@@ -217,16 +233,19 @@ class LSLCompletions(sublime_plugin.EventListener):
             ):
                 annotation_type = ' parameter'
             type_vars = view.substr(reg).split()
-            if fuzzy_match(prefix, type_vars[1])[0]:
-                completions.append(
+            accept, score = fuzzy_match(prefix, type_vars[1])
+            if accept:
+                completions.append((
                     sublime.CompletionItem(
                         trigger = type_vars[1],
                         annotation = type_vars[0] + annotation_type,
                         completion = type_vars[1],
                         completion_format = sublime.COMPLETION_FORMAT_TEXT,
                         kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                        details = type_vars[0])
-                )
+                        details = type_vars[0]
+                    ),
+                    score
+                ))
 
     def on_query_completions(self, view, prefix, locations):
         # Only suggest completions based on the first cursor.
@@ -249,6 +268,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                 continue
 
             category = result.get('category')
+            weight = 0
 
             # Outside of a state.
             if view.match_selector(loc, 'source.lsl - (meta.state, meta.function)'):
@@ -256,48 +276,45 @@ class LSLCompletions(sublime_plugin.EventListener):
                     or category == 'constant'
                     or category == 'keyword.declaration.state'
                 ):
-                    if fuzzy_match(prefix, word)[0]:
-                        item = self.format_result(word, result)
-                        completions.append(item)
+                    # High chance of using storage types. Add some weight.
+                    if category == 'storage.type':
+                        weight = 10
+                    self.compare_words(prefix, word, weight, result)
 
             # Within a state but outside of an event.
             elif view.match_selector(loc, 'meta.state - meta.event'):
                 if category == 'event':
-                    if fuzzy_match(prefix, word)[0]:
-                        item = self.format_result(word, result)
-                        completions.append(item)
+                    self.compare_words(prefix, word, weight, result)
 
             # Event and userfunction parameters. Only allow storage types.
             elif (view.match_selector(loc, 'meta.event.parameters')
                 or view.match_selector(loc, 'meta.function.parameters')
             ):
                 if category == 'storage.type':
-                    if fuzzy_match(prefix, word)[0]:
-                        item = self.format_result(word, result)
-                        completions.append(item)
+                    self.compare_words(prefix, word, weight, result)
 
             # Inside an event or userfunction.
             elif view.match_selector(loc, 'meta.event') or view.match_selector(loc, 'meta.function'):
                 # Can't have state or event declaration inside of an event or userfunction.
                 if category == 'event' or category == 'keyword.declaration.state':
                     continue
-                # Function-call arguments.
+                # Ignore keywords and void functions in function-call arguments.
                 if view.match_selector(loc, 'meta.function-call.arguments'):
-                    # Ignore keywords and functions that return nothing.
                     if category == 'keyword' or not result.get('type'):
                         continue
-                # Remove 'll' when needed, to stop it counting against the fuzzy match score.
-                shortened_word = word
-                if word.startswith('ll') and not prefix.startswith('ll'):
-                    shortened_word = word[2:]
-                if fuzzy_match(prefix, shortened_word)[0]:
-                    item = self.format_result(word, result)
-                    completions.append(item)
-                    if not looking_for_vars:
-                        looking_for_vars = True
-                        self.find_variables(view, prefix, loc)
+                # Chances of using a constant outside of a function-call are small.
+                # Give it less weight.
+                if not view.match_selector(loc, 'meta.function-call.arguments'):
+                    if category == 'constant':
+                        weight = -10
 
-        completions.sort(key=lambda completion: fuzzy_match(prefix, completion.trigger)[1], reverse=True)
+                self.compare_words(prefix, word, weight, result)
+                if not looking_for_vars:
+                    looking_for_vars = True
+                    self.find_variables(view, prefix, loc)
+
+        completions.sort(key=lambda comp: comp[1], reverse=True)
+        completions = [comp for comp, _s in completions]
 
         if completions:
             return (completions,

@@ -25,7 +25,7 @@
 # https://gist.github.com/menzenski/f0f846a254d269bd567e2160485f4b89
 
 def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
-                lead_penalty=-3, max_lead_penalty=-9, unmatched_penalty=-1):
+                lead_penalty=-3, max_lead_penalty=-9, unmatched_penalty=-1, weight=0):
     """Return match boolean and match score.
 
     :param pattern: the pattern to be matched
@@ -116,4 +116,4 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
         score += best_letter_score
         matched_indices.append(best_letter_idx)
 
-    return p_idx == p_len, score
+    return p_idx == p_len, score + weight
