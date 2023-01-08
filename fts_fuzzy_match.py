@@ -24,7 +24,7 @@
 
 # https://gist.github.com/menzenski/f0f846a254d269bd567e2160485f4b89
 
-def fuzzy_match(pattern, instring, adj_bonus=5, sep_bonus=10, camel_bonus=10,
+def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
                 lead_penalty=-3, max_lead_penalty=-9, unmatched_penalty=-1):
     """Return match boolean and match score.
 
