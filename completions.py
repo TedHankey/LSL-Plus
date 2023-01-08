@@ -1,6 +1,7 @@
 # coding: utf-8
 
 import re
+from operator import itemgetter
 
 import sublime
 import sublime_plugin
@@ -313,7 +314,8 @@ class LSLCompletions(sublime_plugin.EventListener):
                     looking_for_vars = True
                     self.find_variables(view, prefix, loc)
 
-        completions.sort(key=lambda comp: comp[1], reverse=True)
+        completions.sort(key=itemgetter(1), reverse=True)
+        # Remove scores from completions
         completions = [comp for comp, _s in completions]
 
         if completions:
