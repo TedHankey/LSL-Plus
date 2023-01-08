@@ -1,11 +1,11 @@
 ## LSL package for Sublime
-[![Requires Sublime Text Build 4050 or later](https://img.shields.io/badge/Sublime%20Text-%3E%3D4050-orange.svg?style=flat-square)](https://www.sublimetext.com)
+[![Requires Sublime Text Build 4074 or later](https://img.shields.io/badge/Sublime%20Text-%3E%3D4074-orange.svg?style=flat-square)](https://www.sublimetext.com)
 
 Syntax highlighting, linting, autocompletion and tooltips for LSL.\
 Includes some color themes for .lsl specific syntax coloring.
 
 ## Requirements  
-* [Sublime Text](https://www.sublimetext.com) `Build 4050` or later.
+* [Sublime Text](https://www.sublimetext.com) `Build 4074` or later.
 * [SublimeLinter](https://github.com/sublimelinter/sublimelinter).
 * [lslint](https://github.com/Makopo/lslint).  
 
