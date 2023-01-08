@@ -295,6 +295,10 @@ class LSLCompletions(sublime_plugin.EventListener):
         completions.sort(key=lambda completion: fuzzy_match(prefix, completion.trigger)[1], reverse=True)
 
         if completions:
-            return (completions, sublime.INHIBIT_WORD_COMPLETIONS)
+            return (completions,
+                        sublime.INHIBIT_WORD_COMPLETIONS |
+                        sublime.DYNAMIC_COMPLETIONS |
+                        sublime.INHIBIT_REORDER
+                    )
 
         return None
