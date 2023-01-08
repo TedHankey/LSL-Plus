@@ -261,11 +261,10 @@ class LSLCompletions(sublime_plugin.EventListener):
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
                         completions.append(item)
-            # Event and userfunction parameters.
+            # Event and userfunction parameters. Only allow storage types.
             elif (view.match_selector(loc, 'meta.event.parameters')
                 or view.match_selector(loc, 'meta.function.parameters')
             ):
-                # Event and userfunction parameters only allow storage types.
                 if category == 'storage.type':
                     if fuzzy_match(prefix, word)[0]:
                         item = self.format_result(word, result)
@@ -296,6 +295,6 @@ class LSLCompletions(sublime_plugin.EventListener):
         completions.sort(key=lambda completion: fuzzy_match(prefix, completion.trigger)[1], reverse=True)
 
         if completions:
-            return (completions, sublime.INHIBIT_WORD_COMPLETIONS | sublime.INHIBIT_EXPLICIT_COMPLETIONS)
+            return (completions, sublime.INHIBIT_WORD_COMPLETIONS)
 
         return None
