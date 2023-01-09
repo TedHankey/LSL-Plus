@@ -34,7 +34,6 @@ class LSLCompletions(sublime_plugin.EventListener):
                 completion = '{}(){}'.format(word, '\n{\n\t$0\n}')
             annotation = 'event'
             kind_id = sublime.KIND_ID_NAMESPACE
-            kind_symbol = 'e'
             kind_desc = 'event'
         elif category == 'function':
             if 'parameters' in result:
@@ -49,24 +48,20 @@ class LSLCompletions(sublime_plugin.EventListener):
                 completion += ';$0'
             annotation = '(' + result.get('type', 'void') + ') function'
             kind_id = sublime.KIND_ID_FUNCTION
-            kind_symbol = 'f'
             kind_desc = 'function'
         elif category.startswith('constant'):
             annotation = result['type'] + ' constant' 
             kind_id = sublime.KIND_ID_MARKUP
-            kind_symbol = 'c'
             kind_desc = 'constant'
         elif category == 'storage.type':
             annotation = 'storage type' 
             kind_id = sublime.KIND_ID_TYPE
-            kind_symbol = 't'
             kind_desc = 'type'
         elif category == 'keyword.declaration.state':
             if word == 'default':
                 completion = 'default\n{\n\t$0\n}'
             annotation = 'state' 
             kind_id = sublime.KIND_ID_NAVIGATION
-            kind_symbol = 's'
             kind_desc = 'state'
         elif category.startswith('keyword.control'):
             if word == 'if':
@@ -79,7 +74,6 @@ class LSLCompletions(sublime_plugin.EventListener):
                 completion = 'while (${1:condition})\n{\n\t${2:// do something}\n}$0'
             annotation = 'keyword' 
             kind_id = sublime.KIND_ID_KEYWORD
-            kind_symbol = 'k'
             kind_desc = 'keyword'
        
         return sublime.CompletionItem(
@@ -87,7 +81,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                     annotation = annotation,
                     completion = completion,
                     completion_format = sublime.COMPLETION_FORMAT_SNIPPET,
-                    kind = (kind_id, kind_symbol, kind_desc),
+                    kind = (kind_id, kind_desc[0], kind_desc),
                     details = ''
                 )
 
