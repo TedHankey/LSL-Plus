@@ -81,8 +81,6 @@ class LSLCompletions(sublime_plugin.EventListener):
             kind_id = sublime.KIND_ID_KEYWORD
             kind_symbol = 'k'
             kind_desc = 'keyword'
-
-        description = result.get('description', 'No description')
        
         return sublime.CompletionItem(
                     trigger = word,
@@ -90,7 +88,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                     completion = completion,
                     completion_format = sublime.COMPLETION_FORMAT_SNIPPET,
                     kind = (kind_id, kind_symbol, kind_desc),
-                    details = description.replace('<' , '&lt;').replace('>', '&gt;')
+                    details = ''
                 )
 
     def find_variables(self, view, prefix, loc):
@@ -126,7 +124,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                         completion = type_vars[1],
                         completion_format = sublime.COMPLETION_FORMAT_TEXT,
                         kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                        details = 'global ' + type_vars[0]
+                        details = ''
                     ),
                     score
                 ))
@@ -149,11 +147,11 @@ class LSLCompletions(sublime_plugin.EventListener):
                 completions.append((
                     sublime.CompletionItem(
                         trigger = result[0][1],
-                        annotation = '(' + return_value + ') function',
+                        annotation = '(' + return_value + ') user-function',
                         completion = completion,
                         completion_format = sublime.COMPLETION_FORMAT_SNIPPET,
                         kind = (sublime.KIND_ID_COLOR_GREENISH, 'f', 'function'),
-                        details = 'user defined function'
+                        details = ''
                     ),
                     score
                 ))
@@ -243,7 +241,7 @@ class LSLCompletions(sublime_plugin.EventListener):
                         completion = type_vars[1],
                         completion_format = sublime.COMPLETION_FORMAT_TEXT,
                         kind = (sublime.KIND_ID_VARIABLE, 'v', 'variable'),
-                        details = type_vars[0]
+                        details = ''
                     ),
                     score
                 ))
