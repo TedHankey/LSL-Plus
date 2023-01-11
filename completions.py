@@ -307,8 +307,8 @@ class LSLCompletions(sublime_plugin.EventListener):
                     self.find_variables(view, prefix, loc)
 
         completions.sort(key=itemgetter(1), reverse=True)
-        # Remove scores from completions
-        completions = [comp for comp, _s in completions]
+        # Remove scores from completions and truncate to 100 items.
+        completions = [comp for comp, _s in completions[0:100]]
 
         if completions:
             return (completions,
