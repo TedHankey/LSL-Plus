@@ -317,4 +317,4 @@ class LSLCompletions(sublime_plugin.EventListener):
                         sublime.INHIBIT_REORDER
                     )
 
-        return None
+        return (None, sublime.INHIBIT_WORD_COMPLETIONS)
