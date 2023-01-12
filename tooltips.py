@@ -72,7 +72,7 @@ class LSLTooltips(sublime_plugin.EventListener):
 
         tooltip_text = ' '.join(tooltip_lines)
         view.show_popup(tooltip_text,
-            flags=(sublime.COOPERATE_WITH_AUTO_COMPLETE | sublime.HIDE_ON_MOUSE_MOVE_AWAY),
+            flags=sublime.COOPERATE_WITH_AUTO_COMPLETE | sublime.HIDE_ON_MOUSE_MOVE_AWAY,
             max_width=800, max_height=512,
             location=point,
             on_hide=self.on_hide(view)
