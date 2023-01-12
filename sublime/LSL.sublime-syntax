@@ -75,11 +75,11 @@ contexts:
     - include: state_declaration
     - include: event_declaration
     - include: userfunction_declaration
-    - include: string-quoted-double
-    - include: constant-language
-    - include: constant-numeric
-    - include: keyword-operator
-    - include: types-vars
+    - include: string_quoted_double
+    - include: constant_language
+    - include: constant_numeric
+    - include: keyword_operator
+    - include: types_vars
     - match: ';'
       scope: punctuation.terminator.statement.lsl
 
@@ -118,7 +118,7 @@ contexts:
 
   event_params:
     - meta_content_scope: meta.event.parameters.lsl
-    - include: types-vars
+    - include: types_vars
     - match: ','
       scope: punctuation.separator.comma.lsl
     - match: '\)'
@@ -205,12 +205,12 @@ contexts:
         1: entity.name.function.lsl
         2: meta.group.lsl punctuation.section.group.begin.lsl
       push: [function_call_arguments, arguments]
-    - include: string-quoted-double
-    - include: keyword-operator
-    - include: constant-language
-    - include: constant-numeric
+    - include: string_quoted_double
+    - include: keyword_operator
+    - include: constant_language
+    - include: constant_numeric
     - include: casts
-    - include: types-vars
+    - include: types_vars
     - match: \(
       scope: punctuation.section.group.begin.lsl
       push:
@@ -341,7 +341,7 @@ contexts:
       set:
         - include: line_of_code
 
-  types-vars:
+  types_vars:
     - match: '\b({{storage_type}})\b'
       scope: storage.type.lsl
     - match: ({{identifier}})
@@ -390,7 +390,7 @@ contexts:
               pop: true
             - include: code_block_in
 
-  string-quoted-double:
+  string_quoted_double:
     - match: '"'
       scope: punctuation.definition.string.begin.lsl
       push:
@@ -402,9 +402,9 @@ contexts:
         - match: $\n?
           scope: invalid.illegal.unclosed-string.lsl
           pop: true
-        - include: constant-character-escape
+        - include: string_escaped
 
-  constant-character-escape:
+  string_escaped:
     - match: |-
         (?x)
         (?:
@@ -421,25 +421,25 @@ contexts:
         4: constant.character.escape.tab.lsl
         5: invalid.illegal.constant.character.escape.lsl
 
-  constant-language:
+  constant_language:
     - match: \b({{constant_language}})\b
       scope: constant.language.lsl
 
-  constant-numeric:
-    - include: constant-numeric-float
-    - include: constant-numeric-integer
+  constant_numeric:
+    - include: constant_numeric_float
+    - include: constant_numeric_integer
 
-  constant-numeric-float:
+  constant_numeric_float:
     - match: ({{constant_numeric_float}})
       scope: constant.numeric.float.lsl
 
-  constant-numeric-integer:
+  constant_numeric_integer:
     - match: ({{constant_numeric_integer_hexadecimal}})
       scope: constant.numeric.integer.hexadecimal.lsl
     - match: ({{constant_numeric_integer_decimal}})
       scope: constant.numeric.integer.decimal.lsl
 
-  keyword-operator:
+  keyword_operator:
     - match: '\+\+'
       scope: keyword.operator.arithmetic.increment.lsl
     - match: '\-\-'
