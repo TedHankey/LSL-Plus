@@ -151,9 +151,9 @@ class LSLCompletions(sublime_plugin.EventListener):
                 ))
 
         # Find local and event/userfunction parameter variables.
-        #
         # TODO: This can fail when scopes change while we are typing in
         # the source file. May be best to fix in the syntax file.
+        #
         # Get a list of regions that match the current location's scope.
         region = []
         if view.match_selector(loc, 'meta.event.body'):
@@ -251,12 +251,20 @@ class LSLCompletions(sublime_plugin.EventListener):
         if KEYWORD_DATA is None:
             return None
 
+        # Do not suggest anything when a variable name is expected.
+        point = loc - len(prefix) - 1
+        prev = view.substr(view.word(point))
+        if (not view.substr(loc - 2) is ')' # Type casting.
+            and prev in ['float', 'integer', 'key', 'list', 'quaternion', 'rotation', 'string', 'vector']
+        ):
+            return (None, sublime.INHIBIT_WORD_COMPLETIONS)
+
         global completions
         completions = []
         looking_for_vars = False
 
         for word, result in KEYWORD_DATA.items():
-            # Don't suggest invalid/deprecated completions.
+            # Do not suggest invalid/deprecated completions.
             if result.get('status'):
                 continue
 
