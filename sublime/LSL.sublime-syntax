@@ -187,7 +187,7 @@ contexts:
     - match: ';'
       scope: punctuation.terminator.statement.lsl
       pop: true
-    - match: (?=\))
+    - match: (?=\S)
       pop: true
 
   line_of_code_in_no_semicolon:
