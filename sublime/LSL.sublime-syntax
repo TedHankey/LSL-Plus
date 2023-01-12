@@ -466,26 +466,8 @@ contexts:
       scope: keyword.operator.bitwise.or.lsl
     - match: '=='
       scope: keyword.operator.comparison.equal.value.lsl
-    # - match: |-
-    #     (?x)
-    #     (?:
-    #       (===)|
-    #       (==)
-    #     )
-    #   captures:
-    #     1: invalid.illegal.keyword.operator.comparison.equal.value-and-type.lsl
-    #     2: keyword.operator.comparison.equal.value.lsl
     - match: '!='
       scope: keyword.operator.comparison.not-equal.value.lsl
-    # - match: |-
-    #     (?x)
-    #     (?:
-    #       (!==)|
-    #       (!=)
-    #     )
-    #   captures:
-    #     1: invalid.illegal.keyword.operator.comparison.not-equal.value-and-type.lsl
-    #     2: keyword.operator.comparison.not-equal.value.lsl
     - match: '!(?!=)'
       scope: keyword.operator.logical.not.lsl
     - match: '<'
@@ -498,7 +480,3 @@ contexts:
       scope: keyword.operator.assignment.lsl
     - match: '[%*+\/\-]'
       scope: keyword.operator.arithmetic.lsl
-    # - match: ':='
-    #   scope: invalid.illegal.keyword.operator.assignment.augmented.division.lsl
-    # - match: ':'
-    #   scope: invalid.illegal.keyword.operator.assignment.division.lsl
