@@ -230,7 +230,7 @@ contexts:
   arguments:
     - match: (?=\))
       pop: true
-    - match: ','
+    - match: ',' #TODO: This scope is never applied.
       scope: punctuation.separator.argument.lsl
     - match: ;
       scope: invalid.illegal.expected-close-paren.lsl
