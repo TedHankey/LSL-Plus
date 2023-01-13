@@ -10,7 +10,7 @@ Includes some color themes for .lsl specific syntax coloring.
 * [lslint](https://github.com/Makopo/lslint).  
 
 ## Installation  
-- Download the zip file.
+- Download the [zip](https://github.com/TedHankey/LSL-Plus/archive/refs/heads/main.zip) file.
 - Unzip into your packages folder.
 - Sublime will download dependencies and prompt you to restart.
 - Restart Sublime Text.
