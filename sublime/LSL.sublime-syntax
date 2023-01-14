@@ -7,7 +7,7 @@ file_extensions: lsl
 first_line_match: (?:\b(?:default)\b(?:\s*\{)?)
 
 variables:
-  # TODO: Add more bailouts.
+  
   storage_type: (?:float|integer|key|list|quaternion|rotation|string|vector)
   identifier: (?:[A-Za-z_]\w*)
 

@@ -86,7 +86,8 @@ class LSLCompletions(sublime_plugin.EventListener):
                 )
 
     def find_variables(self, view, prefix, loc):
-        # Find global variables and userfunctions.
+        # Find global variables, userfunctions and local variables
+        # that are within scope.
         types = r'(\bfloat|integer|key|list|quaternion|rotation|string|vector\b)'
         regex = r'(?:(?:' + types + R'\s+)(?:\b([A-Za-z_]\w*)\b))'
         
@@ -151,8 +152,6 @@ class LSLCompletions(sublime_plugin.EventListener):
                 ))
 
         # Find local and event/userfunction parameter variables.
-        # TODO: This can fail when scopes change while we are typing in
-        # the source file. May be best to fix in the syntax file.
         #
         # Get a list of regions that match the current location's scope.
         region = []
