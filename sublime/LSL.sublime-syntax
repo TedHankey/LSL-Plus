@@ -80,6 +80,7 @@ contexts:
     - include: constant_numeric
     - include: keyword_operator
     - include: types_vars
+    - include: brackets
     - match: ';'
       scope: punctuation.terminator.statement.lsl
 
@@ -211,6 +212,7 @@ contexts:
     - include: constant_numeric
     - include: casts
     - include: types_vars
+    - include: brackets
     - match: \(
       scope: punctuation.section.group.begin.lsl
       push:
@@ -340,6 +342,16 @@ contexts:
     - match: (?=\S)
       set:
         - include: line_of_code
+
+  brackets:
+    - match: \[
+      scope: punctuation.section.brackets.begin.lsl
+      push:
+        - meta_scope: meta.brackets.lsl
+        - match: \]
+          scope: punctuation.section.brackets.end.lsl
+          pop: true
+        - include: line_of_code_in_no_semicolon
 
   types_vars:
     - match: '\b({{storage_type}})\b'
