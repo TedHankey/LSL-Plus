@@ -303,11 +303,12 @@ class LSLCompletions(sublime_plugin.EventListener):
                 if view.match_selector(loc, 'meta.function-call.arguments'):
                     if category == 'keyword' or not result.get('type'):
                         continue
-                # Chances of using a constant outside of a function-call are small.
-                # Give it less weight.
+                # Outside of a function-call.
                 if not view.match_selector(loc, 'meta.function-call.arguments'):
                     if category == 'constant':
                         weight = -10
+                    if view.classify(loc) & sublime.CLASS_LINE_END and category == 'storage.type':
+                        weight = 10
 
                 self.compare_words(prefix, word, weight, result)
                 if not looking_for_vars:
