@@ -253,7 +253,7 @@ class LSLCompletions(sublime_plugin.EventListener):
         # Do not suggest anything when a variable name is expected.
         point = loc - len(prefix) - 1
         prev = view.substr(view.word(point))
-        if (not view.substr(loc - 2) is ')' # Type casting.
+        if (not view.substr(loc - 2) == ')' # Type casting.
             and prev in ['float', 'integer', 'key', 'list', 'quaternion', 'rotation', 'string', 'vector']
         ):
             return (None, sublime.INHIBIT_WORD_COMPLETIONS)
