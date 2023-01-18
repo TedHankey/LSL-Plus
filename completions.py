@@ -112,7 +112,7 @@ class LSLCompletions(sublime_plugin.EventListener):
 
         for reg in regions:
             type_vars = view.substr(reg).split()
-            accept, score = fuzzy_match(prefix, type_vars[1], weight=10)
+            accept, score = fuzzy_match(prefix, type_vars[1], weight=5)
             if accept:
                 completions.append((
                     sublime.CompletionItem(
