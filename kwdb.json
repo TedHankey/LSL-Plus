@@ -10948,6 +10948,9 @@
         "description": "else clause.",
         "category": "keyword.control.conditional"
     },
+    "else if": {
+        "category": "keyword.control.conditional"
+    },
     "jump": {
         "description": "jump statement.",
         "category": "keyword.control.flow"

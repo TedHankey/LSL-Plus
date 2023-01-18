@@ -66,6 +66,8 @@ class LSLCompletions(sublime_plugin.EventListener):
         elif category.startswith('keyword.control'):
             if word == 'if':
                 completion = 'if (${1:condition})$0'
+            elif word == 'else if':
+                completion = 'else if (${1:condition})$0'
             elif word == 'for':
                 completion = 'for (${1:start}; ${2:condition}; ${3:step})\n{\n\t${4:// do something}\n}$0'
             elif word == 'do':
