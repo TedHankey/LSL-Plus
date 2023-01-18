@@ -300,7 +300,9 @@ class LSLCompletions(sublime_plugin.EventListener):
                     continue
                 # Ignore keywords and void functions in function-call arguments.
                 if view.match_selector(loc, 'meta.function-call.arguments'):
-                    if category == 'keyword' or not result.get('type'):
+                    if (category == 'keyword'
+                        or not result.get('type')
+                        and not category == 'storage.type'):
                         continue
                 # Outside of a function-call.
                 if not view.match_selector(loc, 'meta.function-call.arguments'):
