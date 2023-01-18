@@ -47,7 +47,6 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
     prev_sep = True  # so that matching first letter gets sep_bonus
     best_letter, best_lower, best_letter_idx = None, None, None
     best_letter_score = 0
-    matched_indices = []
 
     while s_idx != s_len:
         p_char = pattern[p_idx] if (p_idx != p_len) else None
@@ -63,7 +62,6 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
 
         if advanced or p_repeat:
             score += best_letter_score
-            matched_indices.append(best_letter_idx)
             best_letter, best_lower, best_letter_idx = None, None, None
             best_letter_score = 0
 
@@ -87,7 +85,7 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
             if prev_lower and s_char == s_upper and s_lower != s_upper:
                 new_score += camel_bonus
 
-            # update pattern index iff the next pattern letter was matched
+            # update pattern index if the next pattern letter was matched
             if next_match:
                 p_idx += 1
 
@@ -114,6 +112,5 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
 
     if best_letter:
         score += best_letter_score
-        matched_indices.append(best_letter_idx)
 
     return p_idx == p_len, score + weight
