@@ -25,7 +25,7 @@
 # https://gist.github.com/menzenski/f0f846a254d269bd567e2160485f4b89
 
 def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
-                lead_penalty=-3, max_lead_penalty=-9, unmatched_penalty=-1, weight=0):
+            lead_bonus=4, lead_penalty=-3, max_lead_penalty=-9, unmatched_penalty=-1, weight=0):
     """Return match boolean and match score.
 
     :param pattern: the pattern to be matched
@@ -35,9 +35,11 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
     :param int adj_bonus: bonus for adjacent matches
     :param int sep_bonus: bonus if match occurs after a separator
     :param int camel_bonus: bonus if match is uppercase
+    :param int lead_bonus: bonus applied for each matching letter after 1st match
     :param int lead_penalty: penalty applied for each letter before 1st match
     :param int max_lead_penalty: maximum total ``lead_penalty``
     :param int unmatched_penalty: penalty for each unmatched letter
+    :param int weight: added to the final score
 
     :return: 2-tuple with match truthiness at idx 0 and score at idx 1
     :rtype: ``tuple``
@@ -61,6 +63,10 @@ def fuzzy_match(pattern, instring, adj_bonus=7, sep_bonus=7, camel_bonus=12,
         p_repeat = best_letter and p_char and best_lower == p_lower
 
         if advanced or p_repeat:
+            # apply bonus for a matching letter with the same index
+            # after the first letter.
+            if p_idx > 0 and p_idx == s_idx:
+                score += lead_bonus
             score += best_letter_score
             best_letter, best_lower, best_letter_idx = None, None, None
             best_letter_score = 0
