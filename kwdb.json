@@ -1733,6 +1733,30 @@
         "description": "Scales the texture, instead of using frames.",
         "category": "constant"
     },
+    "SOUND_PLAY": {
+        "type": "integer",
+        "value": 0,
+        "description": "Plays the sound once, attached to the linked primitive.",
+        "category": "constant"
+    },
+    "SOUND_LOOP": {
+        "type": "integer",
+        "value": 1,
+        "description": "Loops the sound attached to the linked primitive.",
+        "category": "constant"
+    },
+    "SOUND_TRIGGER": {
+        "type": "integer",
+        "value": 2,
+        "description": "Triggers the sound at the location of the linked prim. The sound is not attached and does not move with the prim.\nIf this flag is set it overrides all others.",
+        "category": "constant"
+    },
+    "SOUND_SYNC": {
+        "type": "integer",
+        "value": 4,
+        "description": "Synchronizes sound playback to the nearest sound master.",
+        "category": "constant"
+    },
     "ALL_SIDES": {
         "type": "integer",
         "value": -1,
@@ -10458,6 +10482,80 @@
             },
             {
                 "name": "count",
+                "type": "integer"
+            }
+        ],
+        "category": "function"
+    },
+    "llLinkAdjustSoundVolume": {
+        "description": "Adjusts volume of attached sound (0.0 - 1.0).",
+        "parameters": [
+            {
+                "name": "link",
+                "type": "integer"
+            },
+            {
+                "name": "volume",
+                "type": "float"
+            }
+        ],
+        "category": "function"
+    },
+    "llLinkPlaySound": {
+        "description": "Plays attached sound once at volume.",
+        "parameters": [
+            {
+                "name": "link",
+                "type": "integer"
+            },
+            {
+                "name": "sound",
+                "type": "string"
+            },
+            {
+                "name": "volume",
+                "type": "float"
+            },
+            {
+                "name": "flags",
+                "type": "integer"
+            }
+        ],
+        "category": "function"
+    },
+    "llLinkSetSoundQueueing": {
+        "description": "Sets whether attached sounds wait for the current sound to finish.\nIf queue == TRUE then queuing is enabled, if FALSE queuing is disabled [default]",
+        "parameters": [
+            {
+                "name": "link",
+                "type": "integer"
+            },
+            {
+                "name": "radius",
+                "type": "float"
+            }
+        ],
+        "category": "function"
+    },
+    "llLinkSetSoundRadius": {
+        "description": "Establishes a hard cut-off radius for audibility of scripted sounds (both attached and triggered).",
+        "parameters": [
+            {
+                "name": "link",
+                "type": "integer"
+            },
+            {
+                "name": "radius",
+                "type": "float"
+            }
+        ],
+        "category": "function"
+    },
+    "llLinkStopSound": {
+        "description": "Stops currently attached sound.",
+        "parameters": [
+            {
+                "name": "link",
                 "type": "integer"
             }
         ],
